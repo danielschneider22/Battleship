@@ -28,6 +28,8 @@ public class AnimationAndMovementController : MonoBehaviour
 
     public float walkMultiplier = 4.0f;
     public float runMultiplier = 9.0f;
+    private float dragBasePenalty = .75f;
+    private float dragPenalty;
     float rotationFactorPerFrame = 15.0f;
     float gravity = -9.8f;
     float groundedGravity = -.05f;
@@ -217,12 +219,15 @@ public class AnimationAndMovementController : MonoBehaviour
 
         if(isDragging)
         {
-            if((draggingGameObjLoc == "left" && currentMovement.x < 0) || (draggingGameObjLoc == "right" && currentMovement.x > 0) || (draggingGameObjLoc == "top" && currentMovement.z > 0) || (draggingGameObjLoc == "bottom" && currentMovement.z < 0))
+            runningParticleSystem.Stop();
+            if ((draggingGameObjLoc == "left" && currentMovement.x < 0) || (draggingGameObjLoc == "right" && currentMovement.x > 0) || (draggingGameObjLoc == "top" && currentMovement.z > 0) || (draggingGameObjLoc == "bottom" && currentMovement.z < 0))
             {
+                dragPenalty = dragBasePenalty;
                 animator.SetBool(isPushingHash, true);
                 animator.SetBool(isPullingHash, false);
             } else if(currentMovement.x != 0 || currentMovement.z != 0)
             {
+                dragPenalty = dragBasePenalty - .2f;
                 animator.SetBool(isPushingHash, false);
                 animator.SetBool(isPullingHash, true);
             }
@@ -288,7 +293,7 @@ public class AnimationAndMovementController : MonoBehaviour
     {
         handleAnimation();
         handleRotation();
-        characterController.Move((isRunPressed ? currentRunMovement : currentMovement) * Time.deltaTime);
+        characterController.Move((isRunPressed ? isDragging ? currentRunMovement * dragPenalty : currentRunMovement : currentMovement) * Time.deltaTime);
         handleGravity();
         handleJump();
         handleDragObj();
