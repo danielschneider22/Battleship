@@ -1,0 +1,69 @@
+Start of game
+
+Intro:
+Little Timmy and Hugo the Bully
+Little Timmy: I'm tired of playing "Hit Little Timmy in the face, can we play something else?"
+Hugo the Bully: But that's my favorite game Little Stinky!
+Little Timmy: How about battleship instead?
+Hugo the Bully: HA! Battleship? You always lose, cause you're so stinky, and dumb, and stupid, and smell bad
+Meanwhile dad sees Timmy is being bullied, swaps out battleship for Battleship (now with AI assist) sneakily
+..and you your hair is bad, and you have BO, and you are terrible at games. But let's go ahead and play, Stinky!
+Little Timmy: My name is not stinky, it's LITTLE TIMMY (zooms in on face), and you're going down!
+Zooms into board.
+
+Jammo: Jammo on and ready to help assist on battleship 
+Little Timmy: Ok let me set up my pieces.
+Jammo: Oh no... that's awful placement. He put all of his pieces in the middle??? Let me help him out
+
+WASD to move, shift to sprint, press e to drag a ship to a different spot, press r to rotate
+After moving two pieces
+Hugo the Bully: Alright, I'm going first. D5!
+Jammo: WAIT WE AREN'T DONE MOVING OUR PIECES! 
+Jammo: I have to get that piece out of the way of his missile!
+
+Little Timmy: Miss! HAHA!
+Hugo the Bully: Alright stinky, you got lucky
+Little Timmy: My turn, I'm gonna shoot here, A1!
+Hugo the Bully: Miss you stupid idiot! E6 
+Jammo: Here we go again!
+
+Little Timmy: Uhhhh how about, A2!
+Hugo: MISS! B2
+
+Litle Timmy: A3
+Jammo: Has he just picked A1-3? Little Timmy is not the best guesser :\
+Hugo: Miss! 7D
+
+Little Timmy: A4
+Hugo: Miss! B3
+Jammo: How his Hugo guessing the location correctly every time? HE'S PEEKING! Well two can play at that game.
+press v to change view and click on a space to let Timmy know to shoot there
+Jammo: Try B5 Little Timmy!
+Little Timmy: I choose A-... wait what was that voice in my head?
+Little Timmy: I guess.... B5?
+Hugo: You freakin', stupid idiot, lucky, stinky, stink face.... hit.
+Jammo: WHOOT!
+Timmy: WHOOT!
+
+
+Hugo: D8... and E6
+Little Timmy: hey you can't fire two at once? 
+Hugo: If this was real battleships you could!
+Little Timy: Miss and miss
+
+proceed with two guesses until you shoot one of his ships down.
+Hugo: ... you sunk a ship
+Little timmy: HOORAY!
+Hugo: Don't get cocky you stupid smelly turd! I choose row E!
+Jammo/Timmy: WHAT?
+
+sometimes rows sometimes columns
+
+after another ship sunk
+row and value
+
+after another ship sunk
+row and column
+
+Additional things: hugo slams fists having pieces fly in the air. 
+hugo sends things to attack ships
