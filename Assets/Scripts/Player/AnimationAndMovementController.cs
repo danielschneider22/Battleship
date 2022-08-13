@@ -23,6 +23,8 @@ public class AnimationAndMovementController : MonoBehaviour
     int isWalkingHash;
     int isRunningHash;
     int isJumpingHash;
+    int isPushingHash;
+    int isPullingHash;
 
     public float walkMultiplier = 4.0f;
     public float runMultiplier = 9.0f;
@@ -36,6 +38,17 @@ public class AnimationAndMovementController : MonoBehaviour
     bool isJumpAnimating = false;
     bool isJumping = false;
 
+    bool isDragAnimating = false;
+    public bool isDragging = false;
+    public GameObject draggingGameObj;
+    private Vector3 draggingGameObjOrigPos;
+    public GameObject dragPrompt;
+    private Vector3 dragOrigPos;
+    Transform draggingGameObjOrigParent;
+    public string draggingGameObjLoc;
+
+    public bool canDrag = false;
+
     void Awake()
     {
         characterController = GetComponent<CharacterController>();
@@ -44,6 +57,8 @@ public class AnimationAndMovementController : MonoBehaviour
         isWalkingHash = Animator.StringToHash("IsWalking");
         isRunningHash = Animator.StringToHash("IsRunning");
         isJumpingHash = Animator.StringToHash("IsJumping");
+        isPushingHash = Animator.StringToHash("IsPushing");
+        isPullingHash = Animator.StringToHash("IsPulling");
 
         setupPlayerInput();
         setupJumpVariables();
@@ -66,6 +81,7 @@ public class AnimationAndMovementController : MonoBehaviour
         playerInput.CharacterControls.Run.canceled += onRun;
         playerInput.CharacterControls.Jump.started += onJump;
         playerInput.CharacterControls.Jump.canceled += onJump;
+        playerInput.CharacterControls.Drag.started += onDrag;
 
     }
 
@@ -78,7 +94,7 @@ public class AnimationAndMovementController : MonoBehaviour
 
     void handleJump()
     {
-        if (!isJumping && characterController.isGrounded && isJumpPressed)
+        if (!isJumping && characterController.isGrounded && isJumpPressed && !isDragging)
         {
             runningParticleSystem.Stop();
             impact.transform.position = impactPosition.position;
@@ -148,6 +164,42 @@ public class AnimationAndMovementController : MonoBehaviour
         isJumpPressed = context.ReadValueAsButton();
     }
 
+    void onDrag(InputAction.CallbackContext context)
+    {
+        if(isDragging)
+        {
+            isDragging = false;
+        } else
+        {
+            isDragging = canDrag;
+        }
+
+        if(isDragging)
+        {
+            dragPrompt.SetActive(false);
+            dragOrigPos = transform.position;
+            draggingGameObjOrigPos = draggingGameObj.transform.position;
+            draggingGameObjOrigParent = draggingGameObj.transform.parent;
+            draggingGameObj.transform.parent = transform;
+            draggingGameObj.transform.GetChild(0).GetComponent<Rigidbody>().freezeRotation = true;
+            // draggingGameObj.transform.GetChild(0).GetComponent<Animator>().enabled = false;
+            // Destroy(draggingGameObj.transform.GetChild(0).GetComponent<Rigidbody>());
+            // draggingGameObj.transform.GetChild(0).GetComponent<MeshCollider>().enabled = false;
+            // draggingGameObj.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
+        } else
+        {
+            dragPrompt.SetActive(true);
+            animator.SetBool(isPullingHash, false);
+            animator.SetBool(isPushingHash, false);
+            draggingGameObj.transform.parent = draggingGameObjOrigParent;
+            draggingGameObj.transform.GetChild(0).GetComponent<Rigidbody>().freezeRotation = false;
+            // draggingGameObj.transform.GetChild(0).GetComponent<Animator>().enabled = true;
+            // draggingGameObj.transform.GetChild(0).gameObject.AddComponent<Rigidbody>();
+            // draggingGameObj.transform.GetChild(0).GetComponent<MeshCollider>().enabled = true;
+            // draggingGameObj.transform.GetChild(0).GetChild(1).gameObject.SetActive(true);
+        }
+    }
+
     void onMovementInput (InputAction.CallbackContext context)
     {
         currentMovementInput = context.ReadValue<Vector2>();
@@ -163,42 +215,74 @@ public class AnimationAndMovementController : MonoBehaviour
         bool isWalking = animator.GetBool(isWalkingHash);
         bool isRunning = animator.GetBool(isRunningHash);
 
-        if(isMovementPressed && !isWalking)
+        if(isDragging)
         {
-            animator.SetBool(isWalkingHash, true);
-        }
-        if (!isMovementPressed && isWalking)
-        {
+            if((draggingGameObjLoc == "left" && currentMovement.x < 0) || (draggingGameObjLoc == "right" && currentMovement.x > 0) || (draggingGameObjLoc == "top" && currentMovement.z > 0) || (draggingGameObjLoc == "bottom" && currentMovement.z < 0))
+            {
+                animator.SetBool(isPushingHash, true);
+                animator.SetBool(isPullingHash, false);
+            } else if(currentMovement.x != 0 || currentMovement.z != 0)
+            {
+                animator.SetBool(isPushingHash, false);
+                animator.SetBool(isPullingHash, true);
+            }
+                
             animator.SetBool(isWalkingHash, false);
-        }
-
-        if (isMovementPressed && isRunPressed && !isRunning)
-        {
-            if(characterController.isGrounded)
-                runningParticleSystem.Play();
-            animator.SetBool(isRunningHash, true);
-        }
-        if ((!isMovementPressed || !isRunPressed) && isRunning)
-        {
-            runningParticleSystem.Stop();
             animator.SetBool(isRunningHash, false);
         }
+        else
+        {
+            if (isMovementPressed && !isWalking)
+            {
+                animator.SetBool(isWalkingHash, true);
+            }
+            if (!isMovementPressed && isWalking)
+            {
+                animator.SetBool(isWalkingHash, false);
+            }
+
+            if (isMovementPressed && isRunPressed && !isRunning)
+            {
+                if (characterController.isGrounded)
+                    runningParticleSystem.Play();
+                animator.SetBool(isRunningHash, true);
+            }
+            if ((!isMovementPressed || !isRunPressed) && isRunning)
+            {
+                runningParticleSystem.Stop();
+                animator.SetBool(isRunningHash, false);
+            }
+        }
+        
     }
 
     void handleRotation()
     {
-        Vector3 positionToLookAt;
-        positionToLookAt.x = currentMovement.x;
-        positionToLookAt.y = 0.0f;
-        positionToLookAt.z = currentMovement.z;
-        Quaternion currentRotation = transform.rotation;
-
-        if (isMovementPressed)
+        if(!isDragging)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(positionToLookAt);
-            transform.rotation = Quaternion.Slerp(currentRotation, targetRotation, rotationFactorPerFrame * Time.deltaTime);
-        }
+            Vector3 positionToLookAt;
+            positionToLookAt.x = currentMovement.x;
+            positionToLookAt.y = 0.0f;
+            positionToLookAt.z = currentMovement.z;
+            Quaternion currentRotation = transform.rotation;
 
+            if (isMovementPressed)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(positionToLookAt);
+                transform.rotation = Quaternion.Slerp(currentRotation, targetRotation, rotationFactorPerFrame * Time.deltaTime);
+            }
+        }
+        
+
+    }
+
+    private void handleDragObj()
+    {
+        if (isDragging && draggingGameObj != null)
+        {
+            // Vector3 diff = transform.position - dragOrigPos;
+            // draggingGameObj.transform.position = draggingGameObjOrigPos + diff;
+        }
     }
     private void Update()
     {
@@ -207,7 +291,7 @@ public class AnimationAndMovementController : MonoBehaviour
         characterController.Move((isRunPressed ? currentRunMovement : currentMovement) * Time.deltaTime);
         handleGravity();
         handleJump();
-
+        handleDragObj();
     }
 
     private void OnEnable()

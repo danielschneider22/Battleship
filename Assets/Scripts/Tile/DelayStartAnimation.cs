@@ -20,6 +20,7 @@ public class DelayStartAnimation : MonoBehaviour
         if(waitTimer > waitTime && animator.enabled == false)
         {
             animator.enabled = true;
+            this.enabled = false;
         } else if (animator.enabled == false)
         {
             waitTimer += Time.deltaTime;
