@@ -18,7 +18,7 @@ public class AnimationAndMovementController : MonoBehaviour
     Vector3 currentMovement;
     Vector3 currentRunMovement;
     bool isMovementPressed;
-    bool isRunPressed;
+    bool isRunPressed = true;
     float initialJumpVelocity;
     int isWalkingHash;
     int isRunningHash;
@@ -43,13 +43,13 @@ public class AnimationAndMovementController : MonoBehaviour
     bool isDragAnimating = false;
     public bool isDragging = false;
     public GameObject draggingGameObj;
-    private Vector3 draggingGameObjOrigPos;
     public GameObject dragPrompt;
-    private Vector3 dragOrigPos;
     Transform draggingGameObjOrigParent;
     public string draggingGameObjLoc;
+    Quaternion draggingGameObjOrigRotation;
 
     public bool canDrag = false;
+    public TilesManager tilesManager;
 
     void Awake()
     {
@@ -158,7 +158,7 @@ public class AnimationAndMovementController : MonoBehaviour
 
     void onRun(InputAction.CallbackContext context)
     {
-        isRunPressed = context.ReadValueAsButton();
+        isRunPressed = true; // context.ReadValueAsButton();
     }
 
     void onJump(InputAction.CallbackContext context)
@@ -179,11 +179,12 @@ public class AnimationAndMovementController : MonoBehaviour
         if(isDragging)
         {
             dragPrompt.SetActive(false);
-            dragOrigPos = transform.position;
-            draggingGameObjOrigPos = draggingGameObj.transform.position;
+            // dragOrigPos = transform.position;
+            // draggingGameObjOrigPos = draggingGameObj.transform.position;
             draggingGameObjOrigParent = draggingGameObj.transform.parent;
             draggingGameObj.transform.parent = transform;
             draggingGameObj.transform.GetChild(0).GetComponent<Rigidbody>().freezeRotation = true;
+            draggingGameObjOrigRotation = draggingGameObj.transform.rotation;
             // draggingGameObj.transform.GetChild(0).GetComponent<Animator>().enabled = false;
             // Destroy(draggingGameObj.transform.GetChild(0).GetComponent<Rigidbody>());
             // draggingGameObj.transform.GetChild(0).GetComponent<MeshCollider>().enabled = false;
@@ -195,6 +196,8 @@ public class AnimationAndMovementController : MonoBehaviour
             animator.SetBool(isPushingHash, false);
             draggingGameObj.transform.parent = draggingGameObjOrigParent;
             draggingGameObj.transform.GetChild(0).GetComponent<Rigidbody>().freezeRotation = false;
+            draggingGameObj.transform.rotation = draggingGameObjOrigRotation;
+            tilesManager.PlaceShipProperly(draggingGameObj);
             // draggingGameObj.transform.GetChild(0).GetComponent<Animator>().enabled = true;
             // draggingGameObj.transform.GetChild(0).gameObject.AddComponent<Rigidbody>();
             // draggingGameObj.transform.GetChild(0).GetComponent<MeshCollider>().enabled = true;
@@ -252,11 +255,16 @@ public class AnimationAndMovementController : MonoBehaviour
                     runningParticleSystem.Play();
                 animator.SetBool(isRunningHash, true);
             }
-            if ((!isMovementPressed || !isRunPressed) && isRunning)
+            if (!isMovementPressed)
             {
                 runningParticleSystem.Stop();
                 animator.SetBool(isRunningHash, false);
             }
+            // if ((!isMovementPressed || !isRunPressed) && isRunning)
+            //{
+                //runningParticleSystem.Stop();
+                //animator.SetBool(isRunningHash, false);
+            //}
         }
         
     }
