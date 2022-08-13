@@ -28,7 +28,7 @@ public class AnimationAndMovementController : MonoBehaviour
 
     public float walkMultiplier = 4.0f;
     public float runMultiplier = 9.0f;
-    private float dragBasePenalty = .75f;
+    private float dragBasePenalty = .85f;
     private float dragPenalty;
     float rotationFactorPerFrame = 15.0f;
     float gravity = -9.8f;
@@ -168,6 +168,7 @@ public class AnimationAndMovementController : MonoBehaviour
 
     void onDrag(InputAction.CallbackContext context)
     {
+        bool wasDragging = isDragging;
         if(isDragging)
         {
             isDragging = false;
@@ -189,7 +190,7 @@ public class AnimationAndMovementController : MonoBehaviour
             // Destroy(draggingGameObj.transform.GetChild(0).GetComponent<Rigidbody>());
             // draggingGameObj.transform.GetChild(0).GetComponent<MeshCollider>().enabled = false;
             // draggingGameObj.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
-        } else
+        } else if(wasDragging)
         {
             dragPrompt.SetActive(true);
             animator.SetBool(isPullingHash, false);
@@ -230,7 +231,7 @@ public class AnimationAndMovementController : MonoBehaviour
                 animator.SetBool(isPullingHash, false);
             } else if(currentMovement.x != 0 || currentMovement.z != 0)
             {
-                dragPenalty = dragBasePenalty - .2f;
+                dragPenalty = dragBasePenalty - .4f;
                 animator.SetBool(isPushingHash, false);
                 animator.SetBool(isPullingHash, true);
             }
