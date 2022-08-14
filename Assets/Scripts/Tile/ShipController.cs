@@ -14,6 +14,7 @@ public class ShipController : MonoBehaviour
     public Material red;
 
     public bool shouldClearCoor;
+    public bool isEnemy;
 
     public void DoHit((int,int) location)
     {
