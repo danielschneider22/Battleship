@@ -25,9 +25,7 @@ public class TileManager : MonoBehaviour
         if (shipController != null)
         {
             transform.GetChild(0).GetComponent<MeshRenderer>().material = darkBlueMaterial;
-            GameObject ship = shipController.transform.GetChild(0).gameObject;
-            ship.GetComponent<Animator>().enabled = false;
-            ship.GetComponent<Rigidbody>().AddForce(transform.up * 500f);
+            shipController.DoHit((tilePos.Item1, tilePos.Item2));
         } else
         {
             transform.GetChild(0).GetComponent<MeshRenderer>().material = blueMaterial;
