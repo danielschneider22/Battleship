@@ -294,8 +294,7 @@ public class AnimationAndMovementController : MonoBehaviour
     {
         if (isDragging && draggingGameObj != null)
         {
-            // Vector3 diff = transform.position - dragOrigPos;
-            // draggingGameObj.transform.position = draggingGameObjOrigPos + diff;
+            tilesManager.DrawDarkBlueOnActiveShip(draggingGameObj);
         }
     }
     private void Update()

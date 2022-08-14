@@ -9,6 +9,7 @@ public class TilesManager : MonoBehaviour
     public Transform ships;
     public Material darkBlue;
     public Material lightBlue;
+    public Material orange;
 
     public void PlaceShipProperly(GameObject ship)
     {
@@ -26,16 +27,77 @@ public class TilesManager : MonoBehaviour
         }
         Vector3 distBetween = closestChild.GetChild(3).position - topPegSpot.position;
         ship.transform.position = distBetween + ship.transform.position;
-        closestChild.GetChild(0).GetComponent<MeshRenderer>().material = darkBlue;
         (int startX, int startY) = findTilePos(closestChild);
         ShipController shipController = ship.GetComponent<ShipController>();
-        for(int y = startY; y <= startY + (shipController.numPegs - 1); y++ )
+        shipController.shipCoord.Clear();
+        for (int y = startY; y <= startY + (shipController.numPegs - 1); y++ )
         {
             if(y < 7)
             {
                 tiles[startX, y].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = darkBlue;
+                shipController.shipCoord.Add((startX, y));
             }
             
+        }
+    }
+
+    private bool isOtherShipCoord(int x, int y)
+    {
+        foreach (Transform child in ships)
+        {
+            List<(int,int)> myList = child.gameObject.GetComponent<ShipController>().shipCoord;
+            if(myList.Contains((x, y)))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void DrawDarkBlueOnActiveShip(GameObject ship)
+    {
+        Transform topPegSpot = ship.transform.GetChild(1).GetChild(0);
+        float minDistance = 10000f;
+        Transform closestChild = null;
+        foreach (Transform child in transform)
+        {
+            float dist = Vector3.Distance(child.position, topPegSpot.position);
+            if (minDistance > dist)
+            {
+                minDistance = dist;
+                closestChild = child;
+            }
+        }
+        (int startX, int startY) = findTilePos(closestChild);
+        ShipController shipController = ship.GetComponent<ShipController>();
+        if (startX == shipController.shipCoord[0].Item1 && startY == shipController.shipCoord[0].Item2)
+        {
+            return;
+        } else
+        {
+            for (int y = shipController.shipCoord[0].Item2; y <= shipController.shipCoord[0].Item2 + (shipController.numPegs - 1); y++)
+            {
+                if (y < 7)
+                {
+                    if (!isOtherShipCoord(shipController.shipCoord[0].Item1, y))
+                    {
+                        tiles[shipController.shipCoord[0].Item1, y].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = lightBlue;
+                    }
+                    
+                }
+
+            }
+        }
+        
+        shipController.shipCoord.Clear();
+        for (int y = startY; y <= startY + (shipController.numPegs - 1); y++)
+        {
+            if (y < 7)
+            {
+                tiles[startX, y].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = darkBlue;
+                shipController.shipCoord.Add((startX, y));
+            }
+
         }
     }
     private (int, int) findTilePos(Transform tile)
