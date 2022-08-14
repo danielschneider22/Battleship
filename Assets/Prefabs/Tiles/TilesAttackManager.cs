@@ -31,6 +31,7 @@ public class TilesAttackManager : MonoBehaviour
         tileObject.GetComponent<MeshRenderer>().material = darkRed;
         tileObject.transform.GetChild(0).gameObject.SetActive(true);
         tileObject.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = reticleLocked;
+        tileObject.transform.parent.GetComponent<Animator>().SetTrigger("Explode");
     }
 
     // Update is called once per frame

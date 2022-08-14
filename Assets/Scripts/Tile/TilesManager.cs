@@ -59,7 +59,7 @@ public class TilesManager : MonoBehaviour
         }
     }
 
-    private bool isOtherShipCoord(int x, int y)
+    public bool isOtherShipCoord(int x, int y)
     {
         foreach (Transform child in ships)
         {
@@ -193,7 +193,7 @@ public class TilesManager : MonoBehaviour
             }
         }
     }
-    private (int, int) findTilePos(Transform tile)
+    public (int, int) findTilePos(Transform tile)
     {
         for(int x=0; x <= 7; x++)
         {
@@ -215,6 +215,7 @@ public class TilesManager : MonoBehaviour
         {
             TileManager t = child.GetComponent<TileManager>();
             tiles[x, y] = t;
+            t.tilePos = (x, y);
             x = x + 1;
             if(x > 7)
             {
