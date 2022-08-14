@@ -7,6 +7,7 @@ public class UITilesManager : MonoBehaviour
     public UITileManager[,] tiles = new UITileManager[8, 7];
     public Transform ships;
     public Sprite hitSprite;
+    public UITileManager activeTile;
 
     private void PlaceShip(ShipController shipController)
     {
@@ -92,5 +93,8 @@ public class UITilesManager : MonoBehaviour
         {
             PlaceShip(child.gameObject.GetComponent<ShipController>());
         }
+
+        (int, int) randomTile = (Random.Range(0, 8), Random.Range(0, 7));
+        tiles[randomTile.Item1, randomTile.Item2].MakeActiveTile();
     }
 }

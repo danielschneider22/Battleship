@@ -11,13 +11,41 @@ public class UITileManager : MonoBehaviour
     public bool revealed;
     public Sprite damagedSprite;
     public Sprite destroyedSprite;
+    public Sprite activeSprite;
     public Color damagedColor;
     public Color destroyedColor;
+    public Color activeColor;
     private UITilesManager uTilesManager;
 
     private void Start()
     {
         uTilesManager = transform.parent.GetComponent<UITilesManager>();
+    }
+
+    public void MakeInactiveTile()
+    {
+        uTilesManager.activeTile = null;
+        if(!revealed)
+        {
+            spriteRenderer.enabled = false;
+            GetComponent<Image>().color = Color.white;
+        }
+        if(revealed && shipController == null)
+        {
+            spriteRenderer.enabled = false;
+        }
+    }
+
+    public void MakeActiveTile()
+    {
+        if(uTilesManager.activeTile != null)
+        {
+            uTilesManager.activeTile.MakeInactiveTile();
+        }
+        spriteRenderer.sprite = activeSprite;
+        spriteRenderer.enabled = true;
+        GetComponent<Image>().color = activeColor;
+        uTilesManager.activeTile = this;
     }
     public void OnReveal()
     {

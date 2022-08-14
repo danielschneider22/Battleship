@@ -28693,7 +28693,7 @@ GameObject:
   - component: {fileID: 1517747594}
   - component: {fileID: 1517747593}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: EnemyTiles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36783,6 +36783,7 @@ GameObject:
   - component: {fileID: 1858423027}
   - component: {fileID: 1858423026}
   - component: {fileID: 1858423029}
+  - component: {fileID: 1858423030}
   m_Layer: 5
   m_Name: UI Tiles
   m_TagString: Untagged
@@ -36942,6 +36943,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ships: {fileID: 969284498}
   hitSprite: {fileID: 21300000, guid: fb30343d8efb1244da3f29ceee4e0604, type: 3}
+  activeTile: {fileID: 0}
+--- !u!114 &1858423030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1858423024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b83d7ae19f3ae24fbccd407bb95ba91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numPegs: 3
+  timeUntilPick: 5
+  pickTimer: 0
 --- !u!1001 &1863100114
 PrefabInstance:
   m_ObjectHideFlags: 0

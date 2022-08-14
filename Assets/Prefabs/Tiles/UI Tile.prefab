@@ -201,7 +201,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7405463417356531022}
         m_TargetAssemblyTypeName: UITileManager, Assembly-CSharp
-        m_MethodName: OnReveal
+        m_MethodName: MakeActiveTile
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -228,5 +228,7 @@ MonoBehaviour:
   revealed: 0
   damagedSprite: {fileID: 21300000, guid: 7f192ca18525a754ca803e96d3ca7037, type: 3}
   destroyedSprite: {fileID: 21300000, guid: d7c3b2a83196ed54ea100b097f15c223, type: 3}
+  activeSprite: {fileID: 21300000, guid: fb30343d8efb1244da3f29ceee4e0604, type: 3}
   damagedColor: {r: 0.8862745, g: 0, b: 0, a: 1}
   destroyedColor: {r: 0.122641504, g: 0.122641504, b: 0.122641504, a: 1}
+  activeColor: {r: 0.5471698, g: 0, b: 0, a: 1}
