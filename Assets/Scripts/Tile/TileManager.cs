@@ -7,6 +7,7 @@ public class TileManager : MonoBehaviour
     public GameObject explosion;
     public Material blueMaterial;
     public Material darkBlueMaterial;
+    public GameObject PegCollider;
     private TilesManager tilesManager;
 
     public (int, int) tilePos;
@@ -20,12 +21,17 @@ public class TileManager : MonoBehaviour
     public void doExplosion()
     {
         explosion.SetActive(true);
-        if (tilesManager.isOtherShipCoord(tilePos.Item1, tilePos.Item2))
+        ShipController shipController = tilesManager.getShipControllerIfActiveCoord(tilePos.Item1, tilePos.Item2);
+        if (shipController != null)
         {
             transform.GetChild(0).GetComponent<MeshRenderer>().material = darkBlueMaterial;
+            GameObject ship = shipController.transform.GetChild(0).gameObject;
+            ship.GetComponent<Animator>().enabled = false;
+            ship.GetComponent<Rigidbody>().AddForce(transform.up * 500f);
         } else
         {
             transform.GetChild(0).GetComponent<MeshRenderer>().material = blueMaterial;
+            PegCollider.SetActive(true);
         }
         transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
     }

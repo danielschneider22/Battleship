@@ -59,17 +59,18 @@ public class TilesManager : MonoBehaviour
         }
     }
 
-    public bool isOtherShipCoord(int x, int y)
+    public ShipController getShipControllerIfActiveCoord(int x, int y)
     {
         foreach (Transform child in ships)
         {
-            List<(int,int)> myList = child.gameObject.GetComponent<ShipController>().shipCoord;
+            ShipController shipController = child.gameObject.GetComponent<ShipController>();
+            List<(int,int)> myList = shipController.shipCoord;
             if(myList.Contains((x, y)))
             {
-                return true;
+                return shipController;
             }
         }
-        return false;
+        return null;
     }
 
     public void DrawDarkBlueOnActiveShip(GameObject ship)
@@ -99,7 +100,7 @@ public class TilesManager : MonoBehaviour
             {
                 MeshRenderer renderer = tiles[badTile.Item1, badTile.Item2].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>();
                 renderer.transform.GetChild(0).gameObject.SetActive(false);
-                if (isOtherShipCoord(badTile.Item1, badTile.Item2))
+                if (getShipControllerIfActiveCoord(badTile.Item1, badTile.Item2) != null)
                 {
                     if(renderer.material.name.Contains("RedMaterial"))
                     {
@@ -131,7 +132,7 @@ public class TilesManager : MonoBehaviour
             // set all of the previous coordinate tiles to light blue
             for (int y = shipController.shipCoord[0].Item2; y <= shipController.shipCoord[0].Item2 + (shipController.numPegs - 1); y++)
             {
-                if (y < 7 && !isOtherShipCoord(shipController.shipCoord[0].Item1, y))
+                if (y < 7 && getShipControllerIfActiveCoord(shipController.shipCoord[0].Item1, y) == null)
                 {
                     var renderer = tiles[shipController.shipCoord[0].Item1, y].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>();
                     if(!renderer.material.name.Contains("RedMaterial"))
@@ -168,7 +169,7 @@ public class TilesManager : MonoBehaviour
                 
                 shipController.shipCoord.Add((startX, y));
             } 
-            if(isOtherShipCoord(startX, y) || y >= 7)
+            if((getShipControllerIfActiveCoord(startX, y) != null) || y >= 7)
             {
                 badPlacement = true;
             }
