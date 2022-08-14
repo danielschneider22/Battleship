@@ -21,10 +21,10 @@ RenderSettings:
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 1, g: 1, b: 1, a: 1}
-  m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
-  m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
+  m_AmbientEquatorColor: {r: 0, g: 0.178792, b: 0.4245283, a: 1}
+  m_AmbientGroundColor: {r: 0, g: 0.50980395, b: 1.4980392, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 1
   m_SubtractiveShadowColor: {r: 1, g: 1, b: 1, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.3
@@ -1229,6 +1229,7 @@ GameObject:
   - component: {fileID: 133920568}
   - component: {fileID: 133920566}
   - component: {fileID: 133920565}
+  - component: {fileID: 133920571}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -1355,6 +1356,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 133920563}
   m_Mesh: {fileID: 4300000, guid: 46cd524120389ad418423045618d2621, type: 3}
+--- !u!114 &133920571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 133920563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ecff8afebae4034ab1b1690e44f2419, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &134556415
 GameObject:
   m_ObjectHideFlags: 0
@@ -2026,6 +2039,7 @@ GameObject:
   - component: {fileID: 215801998}
   - component: {fileID: 215801996}
   - component: {fileID: 215801995}
+  - component: {fileID: 215802001}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -2152,6 +2166,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 215801993}
   m_Mesh: {fileID: 4300008, guid: 46cd524120389ad418423045618d2621, type: 3}
+--- !u!114 &215802001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 215801993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ecff8afebae4034ab1b1690e44f2419, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &222255870
 GameObject:
   m_ObjectHideFlags: 0
@@ -4075,6 +4101,7 @@ GameObject:
   - component: {fileID: 356255434}
   - component: {fileID: 356255432}
   - component: {fileID: 356255431}
+  - component: {fileID: 356255437}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -4201,6 +4228,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 356255429}
   m_Mesh: {fileID: 4300004, guid: 46cd524120389ad418423045618d2621, type: 3}
+--- !u!114 &356255437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 356255429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ecff8afebae4034ab1b1690e44f2419, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &380889163
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9591,6 +9630,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 35877702}
     m_Modifications:
+    - target: {fileID: 749977683418983647, guid: 66107ecf759542247a0118bae2f4f42d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 72818fc4f3d9d6a419c322a5f3168afb, type: 2}
     - target: {fileID: 4686709975301227258, guid: 66107ecf759542247a0118bae2f4f42d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11210,6 +11254,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 35877702}
     m_Modifications:
+    - target: {fileID: 749977683418983647, guid: 66107ecf759542247a0118bae2f4f42d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 72818fc4f3d9d6a419c322a5f3168afb, type: 2}
     - target: {fileID: 4686709975301227258, guid: 66107ecf759542247a0118bae2f4f42d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -15413,6 +15462,7 @@ GameObject:
   - component: {fileID: 1541816677}
   - component: {fileID: 1541816675}
   - component: {fileID: 1541816674}
+  - component: {fileID: 1541816680}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -15539,6 +15589,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1541816672}
   m_Mesh: {fileID: 4300002, guid: 46cd524120389ad418423045618d2621, type: 3}
+--- !u!114 &1541816680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1541816672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ecff8afebae4034ab1b1690e44f2419, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1547537187
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15749,6 +15811,7 @@ GameObject:
   - component: {fileID: 1583007478}
   - component: {fileID: 1583007477}
   - component: {fileID: 1583007475}
+  - component: {fileID: 1583007480}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -15862,6 +15925,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1583007473}
   m_Mesh: {fileID: 4300006, guid: 46cd524120389ad418423045618d2621, type: 3}
+--- !u!114 &1583007480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583007473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ecff8afebae4034ab1b1690e44f2419, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1592529201
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22191,7 +22266,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numPegs: 5
   pegHits: 
+  tilesManager: {fileID: 35877704}
   PegSpots: {fileID: 747424111}
+  lightBlue: {fileID: 2100000, guid: 72818fc4f3d9d6a419c322a5f3168afb, type: 2}
+  red: {fileID: 2100000, guid: 25f219461a4f5fb4984560f1beedd152, type: 2}
+  shouldClearCoor: 0
 --- !u!54 &33000964637009353
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -22230,7 +22309,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numPegs: 3
   pegHits: 
+  tilesManager: {fileID: 35877704}
   PegSpots: {fileID: 1899730307}
+  lightBlue: {fileID: 2100000, guid: 72818fc4f3d9d6a419c322a5f3168afb, type: 2}
+  red: {fileID: 2100000, guid: 25f219461a4f5fb4984560f1beedd152, type: 2}
+  shouldClearCoor: 0
 --- !u!54 &33188659691279968
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -22269,7 +22352,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numPegs: 3
   pegHits: 
+  tilesManager: {fileID: 35877704}
   PegSpots: {fileID: 502736084}
+  lightBlue: {fileID: 2100000, guid: 72818fc4f3d9d6a419c322a5f3168afb, type: 2}
+  red: {fileID: 2100000, guid: 25f219461a4f5fb4984560f1beedd152, type: 2}
+  shouldClearCoor: 0
 --- !u!54 &33216203250939725
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -22308,7 +22395,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numPegs: 1
   pegHits: 
+  tilesManager: {fileID: 35877704}
   PegSpots: {fileID: 30387433}
+  lightBlue: {fileID: 2100000, guid: 72818fc4f3d9d6a419c322a5f3168afb, type: 2}
+  red: {fileID: 2100000, guid: 25f219461a4f5fb4984560f1beedd152, type: 2}
+  shouldClearCoor: 0
 --- !u!54 &33306451028474918
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -22347,7 +22438,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numPegs: 4
   pegHits: 
+  tilesManager: {fileID: 35877704}
   PegSpots: {fileID: 1113283094}
+  lightBlue: {fileID: 2100000, guid: 72818fc4f3d9d6a419c322a5f3168afb, type: 2}
+  red: {fileID: 2100000, guid: 25f219461a4f5fb4984560f1beedd152, type: 2}
+  shouldClearCoor: 0
 --- !u!54 &33995633951172163
 Rigidbody:
   m_ObjectHideFlags: 0

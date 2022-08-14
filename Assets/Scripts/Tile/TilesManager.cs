@@ -43,7 +43,7 @@ public class TilesManager : MonoBehaviour
         {
             if(y < 7)
             {
-                MeshRenderer renderer = tiles[startX, y].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>();
+                MeshRenderer renderer = tiles[startX, y].transform.GetChild(0).GetComponent<MeshRenderer>();
                 if(!renderer.material.name.Contains("RedMaterial"))
                 {
                     renderer.material = darkBlue;
