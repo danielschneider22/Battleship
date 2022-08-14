@@ -10,6 +10,8 @@ public class TilesManager : MonoBehaviour
     public Material darkBlue;
     public Material lightBlue;
     public Material orange;
+    public Material red;
+
     public bool badPlacement;
     private List<(int, int)> badPlacementTiles = new List<(int, int)>();
 
@@ -36,7 +38,11 @@ public class TilesManager : MonoBehaviour
         {
             if(y < 7)
             {
-                tiles[startX, y].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = darkBlue;
+                MeshRenderer renderer = tiles[startX, y].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>();
+                if(!renderer.material.name.Contains("RedMaterial"))
+                {
+                    tiles[startX, y].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = darkBlue;
+                }
                 shipController.shipCoord.Add((startX, y));
             }
             
@@ -72,29 +78,44 @@ public class TilesManager : MonoBehaviour
         }
         (int startX, int startY) = findTilePos(closestChild);
         ShipController shipController = ship.GetComponent<ShipController>();
+
+        // if position hasn't changed don't do anything
         if (startX == shipController.shipCoord[0].Item1 && startY == shipController.shipCoord[0].Item2)
         {
             return;
-        } else
+        } else // otherwise replace all bad tiles (that were orange) with light blue
         {
             foreach((int, int) badTile in badPlacementTiles)
             {
-                if(isOtherShipCoord(badTile.Item1, badTile.Item2))
+                MeshRenderer renderer = tiles[badTile.Item1, badTile.Item2].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>();
+                renderer.transform.GetChild(0).gameObject.SetActive(false);
+                if (!renderer.material.name.Contains("RedMaterial"))
                 {
-                    tiles[badTile.Item1, badTile.Item2].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = darkBlue;
-                } else
-                {
-                    tiles[badTile.Item1, badTile.Item2].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = lightBlue;
+                    if (isOtherShipCoord(badTile.Item1, badTile.Item2))
+                    {
+                        tiles[badTile.Item1, badTile.Item2].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = darkBlue;
+                    }
+                    else
+                    {
+                        tiles[badTile.Item1, badTile.Item2].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = lightBlue;
+                    }
                 }
+                
                 
             }
             badPlacementTiles.Clear();
 
+            // set all of the previous coordinate tiles to light blue
             for (int y = shipController.shipCoord[0].Item2; y <= shipController.shipCoord[0].Item2 + (shipController.numPegs - 1); y++)
             {
                 if (y < 7 && !isOtherShipCoord(shipController.shipCoord[0].Item1, y))
                 {
-                    tiles[shipController.shipCoord[0].Item1, y].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = lightBlue;
+                    var renderer = tiles[shipController.shipCoord[0].Item1, y].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>();
+                    if(!renderer.material.name.Contains("RedMaterial"))
+                    {
+                        tiles[shipController.shipCoord[0].Item1, y].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = lightBlue;
+                    }
+                    
                 }
             }
         }
@@ -103,11 +124,17 @@ public class TilesManager : MonoBehaviour
         badPlacement = false;
         for (int y = startY; y <= startY + (shipController.numPegs - 1); y++)
         {
-            if (y < 7 && !isOtherShipCoord(startX, y))
+            if (y < 7)
             {
-                tiles[startX, y].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = darkBlue;
+                var renderer = tiles[startX, y].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>();
+                if(!renderer.material.name.Contains("RedMaterial"))
+                {
+                    tiles[startX, y].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = darkBlue;
+                }
+                
                 shipController.shipCoord.Add((startX, y));
-            } else
+            } 
+            if(isOtherShipCoord(startX, y) || y >= 7)
             {
                 badPlacement = true;
             }
@@ -120,7 +147,12 @@ public class TilesManager : MonoBehaviour
                 if (y < 7)
                 {
                     badPlacementTiles.Add((startX, y));
-                    tiles[startX, y].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = orange;
+                    var renderer = tiles[startX, y].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>();
+                    if(!renderer.material.name.Contains("RedMaterial"))
+                    {
+                        renderer.material = orange;
+                        renderer.transform.GetChild(0).gameObject.SetActive(true);
+                    }
                 }
 
             }
@@ -158,7 +190,11 @@ public class TilesManager : MonoBehaviour
 
         foreach (Transform child in transform)
         {
-            child.GetChild(0).GetComponent<MeshRenderer>().material = lightBlue;
+            var renderer = child.GetChild(0).GetComponent<MeshRenderer>();
+            if(!renderer.material.name.Contains("RedMaterial"))
+            {
+                child.GetChild(0).GetComponent<MeshRenderer>().material = lightBlue;
+            }
         }
 
         foreach (Transform child in ships)

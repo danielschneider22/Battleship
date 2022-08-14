@@ -28,7 +28,7 @@ public class AnimationAndMovementController : MonoBehaviour
 
     public float walkMultiplier = 4.0f;
     public float runMultiplier = 9.0f;
-    private float dragBasePenalty = .85f;
+    private float dragBasePenalty = .9f;
     private float dragPenalty;
     float rotationFactorPerFrame = 15.0f;
     float gravity = -9.8f;
@@ -235,7 +235,7 @@ public class AnimationAndMovementController : MonoBehaviour
                 animator.SetBool(isPullingHash, false);
             } else if(currentMovement.x != 0 || currentMovement.z != 0)
             {
-                dragPenalty = dragBasePenalty - .4f;
+                dragPenalty = dragBasePenalty - .25f;
                 animator.SetBool(isPushingHash, false);
                 animator.SetBool(isPullingHash, true);
             }

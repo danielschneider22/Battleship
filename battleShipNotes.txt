@@ -65,5 +65,7 @@ row and value
 after another ship sunk
 row and column
 
-Additional things: hugo slams fists having pieces fly in the air. 
+Additional things:
+hugo slams fists having pieces fly in the air. 
+hugo sends electricity that you have to jump overwa
 hugo sends things to attack ships
