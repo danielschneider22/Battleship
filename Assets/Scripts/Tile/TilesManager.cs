@@ -10,6 +10,8 @@ public class TilesManager : MonoBehaviour
     public Material darkBlue;
     public Material lightBlue;
     public Material orange;
+    public bool badPlacement;
+    private List<(int, int)> badPlacementTiles = new List<(int, int)>();
 
     public void PlaceShipProperly(GameObject ship)
     {
@@ -75,29 +77,53 @@ public class TilesManager : MonoBehaviour
             return;
         } else
         {
+            foreach((int, int) badTile in badPlacementTiles)
+            {
+                if(isOtherShipCoord(badTile.Item1, badTile.Item2))
+                {
+                    tiles[badTile.Item1, badTile.Item2].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = darkBlue;
+                } else
+                {
+                    tiles[badTile.Item1, badTile.Item2].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = lightBlue;
+                }
+                
+            }
+            badPlacementTiles.Clear();
+
             for (int y = shipController.shipCoord[0].Item2; y <= shipController.shipCoord[0].Item2 + (shipController.numPegs - 1); y++)
             {
-                if (y < 7)
+                if (y < 7 && !isOtherShipCoord(shipController.shipCoord[0].Item1, y))
                 {
-                    if (!isOtherShipCoord(shipController.shipCoord[0].Item1, y))
-                    {
-                        tiles[shipController.shipCoord[0].Item1, y].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = lightBlue;
-                    }
-                    
+                    tiles[shipController.shipCoord[0].Item1, y].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = lightBlue;
                 }
-
             }
         }
         
         shipController.shipCoord.Clear();
+        badPlacement = false;
         for (int y = startY; y <= startY + (shipController.numPegs - 1); y++)
         {
-            if (y < 7)
+            if (y < 7 && !isOtherShipCoord(startX, y))
             {
                 tiles[startX, y].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = darkBlue;
                 shipController.shipCoord.Add((startX, y));
+            } else
+            {
+                badPlacement = true;
             }
 
+        }
+        if(badPlacement)
+        {
+            for (int y = startY; y <= startY + (shipController.numPegs - 1); y++)
+            {
+                if (y < 7)
+                {
+                    badPlacementTiles.Add((startX, y));
+                    tiles[startX, y].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = orange;
+                }
+
+            }
         }
     }
     private (int, int) findTilePos(Transform tile)

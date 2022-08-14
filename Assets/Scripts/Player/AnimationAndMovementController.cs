@@ -168,6 +168,10 @@ public class AnimationAndMovementController : MonoBehaviour
 
     void onDrag(InputAction.CallbackContext context)
     {
+        if(isDragging && tilesManager.badPlacement)
+        {
+            return;
+        }
         bool wasDragging = isDragging;
         if(isDragging)
         {
