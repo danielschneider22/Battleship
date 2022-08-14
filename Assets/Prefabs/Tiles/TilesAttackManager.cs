@@ -6,6 +6,8 @@ public class TilesAttackManager : MonoBehaviour
 {
     public TilesManager tilesManager;
     public Material red;
+    public Material darkRed;
+    public Sprite reticleLocked;
 
     private float attackTimer = 4f;
     private void MakeAttack()
@@ -25,7 +27,10 @@ public class TilesAttackManager : MonoBehaviour
             }
         }
         randomTile = allCoord[Random.Range(0, allCoord.Count)];
-        tilesManager.tiles[randomTile.Item1, randomTile.Item2].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = red;
+        GameObject tileObject = tilesManager.tiles[randomTile.Item1, randomTile.Item2].transform.GetChild(0).gameObject;
+        tileObject.GetComponent<MeshRenderer>().material = darkRed;
+        tileObject.transform.GetChild(0).gameObject.SetActive(true);
+        tileObject.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = reticleLocked;
     }
 
     // Update is called once per frame

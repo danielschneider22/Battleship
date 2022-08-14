@@ -600,6 +600,10 @@ MonoBehaviour:
   lightBlue: {fileID: 2100000, guid: 72818fc4f3d9d6a419c322a5f3168afb, type: 2}
   orange: {fileID: 2100000, guid: b2748294742217e4daddc18e5a73b97d, type: 2}
   red: {fileID: 2100000, guid: 25f219461a4f5fb4984560f1beedd152, type: 2}
+  darkRed: {fileID: 2100000, guid: edd0e2e5eba284f4d97a66df7dd6c47f, type: 2}
+  warning: {fileID: 21300000, guid: d0a47383c3271ea4c88d67209454dd28, type: 3}
+  reticleSearching: {fileID: 21300000, guid: fb30343d8efb1244da3f29ceee4e0604, type: 3}
+  reticleLocked: {fileID: 21300000, guid: 581ffbc47ad1de44a8e77149cf14ea37, type: 3}
   badPlacement: 0
 --- !u!114 &35877705
 MonoBehaviour:
@@ -615,6 +619,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilesManager: {fileID: 35877704}
   red: {fileID: 2100000, guid: 25f219461a4f5fb4984560f1beedd152, type: 2}
+  darkRed: {fileID: 2100000, guid: edd0e2e5eba284f4d97a66df7dd6c47f, type: 2}
+  reticleLocked: {fileID: 21300000, guid: 581ffbc47ad1de44a8e77149cf14ea37, type: 3}
 --- !u!1 &68465149
 GameObject:
   m_ObjectHideFlags: 0
@@ -1596,6 +1602,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 35877702}
     m_Modifications:
+    - target: {fileID: 749977683418983647, guid: 66107ecf759542247a0118bae2f4f42d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 72818fc4f3d9d6a419c322a5f3168afb, type: 2}
     - target: {fileID: 7184855395982474884, guid: 66107ecf759542247a0118bae2f4f42d,
         type: 3}
       propertyPath: waitTime
@@ -11907,6 +11918,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 35877702}
     m_Modifications:
+    - target: {fileID: 749977683418983647, guid: 66107ecf759542247a0118bae2f4f42d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 72818fc4f3d9d6a419c322a5f3168afb, type: 2}
+    - target: {fileID: 1836325987620558244, guid: 66107ecf759542247a0118bae2f4f42d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3937930234234747370, guid: 66107ecf759542247a0118bae2f4f42d,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d0a47383c3271ea4c88d67209454dd28,
+        type: 3}
     - target: {fileID: 4686709975301227258, guid: 66107ecf759542247a0118bae2f4f42d,
         type: 3}
       propertyPath: m_LocalPosition.x

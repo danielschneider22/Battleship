@@ -11,6 +11,11 @@ public class TilesManager : MonoBehaviour
     public Material lightBlue;
     public Material orange;
     public Material red;
+    public Material darkRed;
+
+    public Sprite warning;
+    public Sprite reticleSearching;
+    public Sprite reticleLocked;
 
     public bool badPlacement;
     private List<(int, int)> badPlacementTiles = new List<(int, int)>();
@@ -41,7 +46,12 @@ public class TilesManager : MonoBehaviour
                 MeshRenderer renderer = tiles[startX, y].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>();
                 if(!renderer.material.name.Contains("RedMaterial"))
                 {
-                    tiles[startX, y].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = darkBlue;
+                    renderer.material = darkBlue;
+                } else
+                {
+                    renderer.material = darkRed;
+                    renderer.transform.GetChild(0).gameObject.SetActive(true);
+                    renderer.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = reticleLocked;
                 }
                 shipController.shipCoord.Add((startX, y));
             }
@@ -89,16 +99,29 @@ public class TilesManager : MonoBehaviour
             {
                 MeshRenderer renderer = tiles[badTile.Item1, badTile.Item2].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>();
                 renderer.transform.GetChild(0).gameObject.SetActive(false);
-                if (!renderer.material.name.Contains("RedMaterial"))
+                if (isOtherShipCoord(badTile.Item1, badTile.Item2))
                 {
-                    if (isOtherShipCoord(badTile.Item1, badTile.Item2))
+                    if(renderer.material.name.Contains("RedMaterial"))
                     {
-                        tiles[badTile.Item1, badTile.Item2].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = darkBlue;
-                    }
-                    else
+                        renderer.material = darkRed;
+                        renderer.transform.GetChild(0).gameObject.SetActive(true);
+                        renderer.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = reticleLocked;
+                    } else
                     {
-                        tiles[badTile.Item1, badTile.Item2].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = lightBlue;
+                        renderer.material = darkBlue;
+                        renderer.transform.GetChild(0).gameObject.SetActive(false);
                     }
+                    
+                }
+                else if(!renderer.material.name.Contains("RedMaterial"))
+                {
+                    renderer.material = lightBlue;
+                }
+                else
+                {
+                    renderer.material = red;
+                    renderer.transform.GetChild(0).gameObject.SetActive(true);
+                    renderer.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = reticleSearching;
                 }
                 
                 
@@ -113,7 +136,13 @@ public class TilesManager : MonoBehaviour
                     var renderer = tiles[shipController.shipCoord[0].Item1, y].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>();
                     if(!renderer.material.name.Contains("RedMaterial"))
                     {
-                        tiles[shipController.shipCoord[0].Item1, y].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = lightBlue;
+                        renderer.material = lightBlue;
+                        renderer.transform.GetChild(0).gameObject.SetActive(false);
+                    } else
+                    {
+                        renderer.material = red;
+                        renderer.transform.GetChild(0).gameObject.SetActive(true);
+                        renderer.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = reticleSearching;
                     }
                     
                 }
@@ -129,7 +158,12 @@ public class TilesManager : MonoBehaviour
                 var renderer = tiles[startX, y].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>();
                 if(!renderer.material.name.Contains("RedMaterial"))
                 {
-                    tiles[startX, y].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = darkBlue;
+                    renderer.material = darkBlue;
+                } else
+                {
+                    renderer.material = darkRed;
+                    renderer.transform.GetChild(0).gameObject.SetActive(true);
+                    renderer.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = reticleLocked;
                 }
                 
                 shipController.shipCoord.Add((startX, y));
@@ -152,6 +186,7 @@ public class TilesManager : MonoBehaviour
                     {
                         renderer.material = orange;
                         renderer.transform.GetChild(0).gameObject.SetActive(true);
+                        renderer.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = warning;
                     }
                 }
 
@@ -185,15 +220,6 @@ public class TilesManager : MonoBehaviour
             {
                 x = 0;
                 y = y + 1;
-            }
-        }
-
-        foreach (Transform child in transform)
-        {
-            var renderer = child.GetChild(0).GetComponent<MeshRenderer>();
-            if(!renderer.material.name.Contains("RedMaterial"))
-            {
-                child.GetChild(0).GetComponent<MeshRenderer>().material = lightBlue;
             }
         }
 
