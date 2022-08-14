@@ -12,9 +12,10 @@ public class ShipController : MonoBehaviour
     public GameObject PegSpots;
     public Material lightBlue;
     public Material red;
+    public Material redCapsuleMaterial;
 
     public bool shouldClearCoor;
-    public bool isEnemy;
+    public bool isEnemyShip;
 
     public void DoHit((int,int) location)
     {
@@ -26,14 +27,24 @@ public class ShipController : MonoBehaviour
                 pegHits.Add(i);
                 // ship.GetComponent<Animator>().enabled = false;
                 PegSpots.transform.GetChild(i).gameObject.SetActive(true);
+                PegSpots.transform.GetChild(i).gameObject.GetComponent<MeshRenderer>().material = red;
                 // gameObject.AddComponent<Rigidbody>();
                 // GetComponent<Rigidbody>().isKinematic = false;
                 // GetComponent<Rigidbody>().useGravity = true;
                 // GetComponent<Rigidbody>().AddForce(transform.up * 500f);
-                if(pegHits.Count == numPegs)
+                if (pegHits.Count == numPegs)
                 {
-                    transform.GetChild(0).GetComponent<Animator>().SetTrigger("ShipDeath");
+                    transform.GetChild(0).GetComponent<Animator>().enabled = true;
+                    if(!isEnemyShip)
+                    {
+                        transform.GetChild(0).GetComponent<Animator>().SetTrigger("ShipDeath");
+                    }
                     shouldClearCoor = true;
+                }
+                if(isEnemyShip)
+                {
+                    // trigger explosion on enemy board
+                    PegSpots.transform.GetChild(i).GetChild(1).gameObject.SetActive(true);
                 }
             }
             i = i + 1;
@@ -42,7 +53,7 @@ public class ShipController : MonoBehaviour
 
     public void ClearShipCoor()
     {
-        if (shouldClearCoor)
+        if (shouldClearCoor && !isEnemyShip)
         {
             foreach ((int, int) coor in shipCoord)
             {
