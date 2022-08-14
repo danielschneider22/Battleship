@@ -32,7 +32,7 @@ public class TileManager : MonoBehaviour
         } else
         {
             transform.GetChild(0).GetComponent<MeshRenderer>().material = blueMaterial;
-            // PegCollider.SetActive(true);
+            PegCollider.SetActive(true);
         }
         transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
     }

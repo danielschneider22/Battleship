@@ -1,19 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class TimmyGuessManager : MonoBehaviour
 {
-    public int numPegs = 3;
+    public int pegsInStorage = 3;
     private UITilesManager uTilesManager;
     public float timeUntilPick = 5f;
     public float pickTimer = 0f;
+    public int pegsHeld = 0;
+    public TextMeshProUGUI pegsHeldText;
+
 
     private List<(int, int)> pickedList = new List<(int, int)>();
 
     private void Start()
     {
         uTilesManager = GetComponent<UITilesManager>();
+    }
+
+    public void IncreasePegsHeld()
+    {
+        pegsHeld = pegsHeld + 1;
+        pegsHeldText.text = "x" + pegsHeld.ToString();
+
     }
 
     private void Update()
