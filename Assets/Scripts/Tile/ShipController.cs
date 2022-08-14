@@ -20,8 +20,14 @@ public class ShipController : MonoBehaviour
                 pegHits.Add(i);
                 // ship.GetComponent<Animator>().enabled = false;
                 PegSpots.transform.GetChild(i).gameObject.SetActive(true);
-                GetComponent<Rigidbody>().useGravity = true;
-                GetComponent<Rigidbody>().AddForce(transform.up * 500f);
+                // gameObject.AddComponent<Rigidbody>();
+                // GetComponent<Rigidbody>().isKinematic = false;
+                // GetComponent<Rigidbody>().useGravity = true;
+                // GetComponent<Rigidbody>().AddForce(transform.up * 500f);
+                if(pegHits.Count == numPegs)
+                {
+                    transform.GetChild(0).GetComponent<Animator>().SetTrigger("ShipDeath");
+                }
             }
             i = i + 1;
         }

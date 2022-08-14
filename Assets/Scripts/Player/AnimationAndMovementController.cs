@@ -188,25 +188,17 @@ public class AnimationAndMovementController : MonoBehaviour
             // draggingGameObjOrigPos = draggingGameObj.transform.position;
             draggingGameObjOrigParent = draggingGameObj.transform.parent;
             draggingGameObj.transform.parent = transform;
-            draggingGameObj.transform.GetChild(0).GetComponent<Rigidbody>().freezeRotation = true;
+            draggingGameObj.GetComponent<Rigidbody>().freezeRotation = true;
             draggingGameObjOrigRotation = draggingGameObj.transform.rotation;
-            // draggingGameObj.transform.GetChild(0).GetComponent<Animator>().enabled = false;
-            // Destroy(draggingGameObj.transform.GetChild(0).GetComponent<Rigidbody>());
-            // draggingGameObj.transform.GetChild(0).GetComponent<MeshCollider>().enabled = false;
-            // draggingGameObj.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
         } else if(wasDragging)
         {
             dragPrompt.SetActive(true);
             animator.SetBool(isPullingHash, false);
             animator.SetBool(isPushingHash, false);
             draggingGameObj.transform.parent = draggingGameObjOrigParent;
-            draggingGameObj.transform.GetChild(0).GetComponent<Rigidbody>().freezeRotation = false;
+            draggingGameObj.GetComponent<Rigidbody>().freezeRotation = false;
             draggingGameObj.transform.rotation = draggingGameObjOrigRotation;
             tilesManager.PlaceShipProperly(draggingGameObj);
-            // draggingGameObj.transform.GetChild(0).GetComponent<Animator>().enabled = true;
-            // draggingGameObj.transform.GetChild(0).gameObject.AddComponent<Rigidbody>();
-            // draggingGameObj.transform.GetChild(0).GetComponent<MeshCollider>().enabled = true;
-            // draggingGameObj.transform.GetChild(0).GetChild(1).gameObject.SetActive(true);
         }
     }
 

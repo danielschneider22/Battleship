@@ -22,7 +22,7 @@ public class TilesManager : MonoBehaviour
 
     public void PlaceShipProperly(GameObject ship)
     {
-        Transform topPegSpot = ship.transform.GetChild(1).GetChild(0);
+        Transform topPegSpot = ship.transform.GetChild(0).GetChild(0).GetChild(0);
         float minDistance = 10000f;
         Transform closestChild = null;
         foreach (Transform child in transform)
@@ -75,7 +75,7 @@ public class TilesManager : MonoBehaviour
 
     public void DrawDarkBlueOnActiveShip(GameObject ship)
     {
-        Transform topPegSpot = ship.transform.GetChild(1).GetChild(0);
+        Transform topPegSpot = ship.transform.GetChild(0).GetChild(0).GetChild(0);
         float minDistance = 10000f;
         Transform closestChild = null;
         foreach (Transform child in transform)
