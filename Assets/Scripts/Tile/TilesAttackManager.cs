@@ -35,23 +35,27 @@ public class TilesAttackManager : MonoBehaviour
         {
             allCoord.Remove(alreadyAttacking);
         }
-        if(allCoord.Count > 0)
+        if(attackingList.Count < 20)
         {
-            randomTile = allCoord[Random.Range(0, allCoord.Count)];
-        } else
-        {
-            do
+            if (allCoord.Count > 0)
             {
-                randomTile = (Random.Range(0, 8), Random.Range(0, 7));
-            } while (attackingList.Contains(randomTile));
-            
+                randomTile = allCoord[Random.Range(0, allCoord.Count)];
+            }
+            else
+            {
+                do
+                {
+                    randomTile = (Random.Range(0, 8), Random.Range(0, 7));
+                } while (attackingList.Contains(randomTile));
+
+            }
+            attackingList.Add(randomTile);
+            GameObject tileObject = tilesManager.tiles[randomTile.Item1, randomTile.Item2].transform.GetChild(0).gameObject;
+            tileObject.GetComponent<MeshRenderer>().material = darkRed;
+            tileObject.transform.GetChild(0).gameObject.SetActive(true);
+            tileObject.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = reticleLocked;
+            tileObject.transform.parent.GetComponent<Animator>().SetTrigger("Explode");
         }
-        attackingList.Add(randomTile);
-        GameObject tileObject = tilesManager.tiles[randomTile.Item1, randomTile.Item2].transform.GetChild(0).gameObject;
-        tileObject.GetComponent<MeshRenderer>().material = darkRed;
-        tileObject.transform.GetChild(0).gameObject.SetActive(true);
-        tileObject.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = reticleLocked;
-        tileObject.transform.parent.GetComponent<Animator>().SetTrigger("Explode");
 
     }
 

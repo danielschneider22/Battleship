@@ -17,6 +17,8 @@ public class ShipController : MonoBehaviour
     public bool shouldClearCoor;
     public bool isEnemyShip;
     public Canvas gameOverCanvas;
+    public Canvas winningCanvas;
+    public TimmyGuessManager timmyGuessManager;
 
     public void DoHit((int,int) location)
     {
@@ -51,6 +53,23 @@ public class ShipController : MonoBehaviour
                         if(gameover)
                         {
                             gameOverCanvas.enabled = true;
+                            timmyGuessManager.enabled = false;
+                        }
+                    } else
+                    {
+                        bool gameover = true;
+                        foreach (Transform ship in transform.parent)
+                        {
+                            var theController = ship.GetComponent<ShipController>();
+                            if (theController.numPegs != theController.pegHits.Count)
+                            {
+                                gameover = false;
+                            }
+                        }
+                        if (gameover)
+                        {
+                            winningCanvas.enabled = true;
+                            timmyGuessManager.enabled = false;
                         }
                     }
                     shouldClearCoor = true;
