@@ -51,6 +51,9 @@ public class AnimationAndMovementController : MonoBehaviour
     public bool canDrag = false;
     public TilesManager tilesManager;
 
+    public TimmyGuessManager timmyGuessManager;
+    public bool canDropOff = false;
+
     void Awake()
     {
         characterController = GetComponent<CharacterController>();
@@ -168,6 +171,10 @@ public class AnimationAndMovementController : MonoBehaviour
 
     void onDrag(InputAction.CallbackContext context)
     {
+        if(canDropOff)
+        {
+            timmyGuessManager.DepositAll();
+        }
         if(isDragging && tilesManager.badPlacement)
         {
             return;

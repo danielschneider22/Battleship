@@ -17,7 +17,7 @@ public class UITileManager : MonoBehaviour
     public Color activeColor;
     private UITilesManager uTilesManager;
 
-    private void Start()
+    private void Awake()
     {
         uTilesManager = transform.parent.GetComponent<UITilesManager>();
     }

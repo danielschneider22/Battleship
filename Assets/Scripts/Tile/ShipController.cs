@@ -27,7 +27,7 @@ public class ShipController : MonoBehaviour
                 pegHits.Add(i);
                 // ship.GetComponent<Animator>().enabled = false;
                 PegSpots.transform.GetChild(i).gameObject.SetActive(true);
-                PegSpots.transform.GetChild(i).gameObject.GetComponent<MeshRenderer>().material = red;
+                PegSpots.transform.GetChild(i).gameObject.GetComponent<MeshRenderer>().material = redCapsuleMaterial;
                 // gameObject.AddComponent<Rigidbody>();
                 // GetComponent<Rigidbody>().isKinematic = false;
                 // GetComponent<Rigidbody>().useGravity = true;

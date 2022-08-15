@@ -5,6 +5,8 @@ using UnityEngine;
 public class CollectPeg : MonoBehaviour
 {
     private TimmyGuessManager timmyGuessManager;
+    public ParticleSystem pickupParticleSystem;
+
 
     private void Start()
     {
@@ -16,6 +18,9 @@ public class CollectPeg : MonoBehaviour
         {
             timmyGuessManager.IncreasePegsHeld();
             gameObject.SetActive(false);
+            pickupParticleSystem.transform.position = transform.position;
+            pickupParticleSystem.Play();
         }
     }
+
 }

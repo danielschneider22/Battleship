@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class DragColliderManager : MonoBehaviour
@@ -31,12 +32,13 @@ public class DragColliderManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.name == "CanDragShipCollider" && !moveController.isDragging)
+        if(other.gameObject.name == "CanDragShipCollider" && !moveController.isDragging && !moveController.canDropOff)
         {
             dragList.Add(other.gameObject.transform.parent.parent.name);
             moveController.draggingGameObjLoc = cardinalDirectionAwayFromPlayer(moveController.transform.position, other.transform.position);
             moveController.canDrag = true;
             moveController.draggingGameObj = other.gameObject.transform.parent.parent.gameObject;
+            ePromptGameObject.transform.GetChild(1).GetComponent<TextMeshPro>().text = "Grab [E]";
             ePromptGameObject.SetActive(true);
         }
     }
@@ -46,7 +48,7 @@ public class DragColliderManager : MonoBehaviour
         if (other.gameObject.name == "CanDragShipCollider")
         {
             dragList.Remove(other.gameObject.transform.parent.parent.name);
-            if(dragList.Count == 0)
+            if(dragList.Count == 0 && !moveController.canDropOff)
             {
                 moveController.canDrag = false;
                 ePromptGameObject.SetActive(false);

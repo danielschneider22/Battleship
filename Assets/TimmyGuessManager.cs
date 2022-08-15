@@ -14,6 +14,7 @@ public class TimmyGuessManager : MonoBehaviour
     public Transform pegsContainer;
 
     public GameObject arrow;
+    public GameObject pegToCopy;
 
     public bool waitingOnPegs = false;
 
@@ -24,10 +25,22 @@ public class TimmyGuessManager : MonoBehaviour
     {
         uTilesManager = GetComponent<UITilesManager>();
     }
-
+    public void DepositAll()
+    {
+        pegsInStorage = pegsInStorage + pegsHeld;
+        for(var i = 0; i < pegsInStorage; i++ )
+        {
+            GameObject newObj = Instantiate(pegToCopy, pegsContainer);
+            newObj.SetActive(true);
+            newObj.transform.position = new Vector3(pegToCopy.transform.position.x, pegToCopy.transform.position.y + i * 5f, pegToCopy.transform.position.z);
+            newObj.transform.rotation = Random.rotation;
+        }
+        pegsHeld = 0;
+        pegsHeldText.text = "x" + pegsHeld.ToString();
+    }
     public void IncreasePegsHeld()
     {
-        pegsHeld = pegsHeld + 1;
+        pegsHeld = Mathf.Min(pegsHeld + 1, 9);
         pegsHeldText.text = "x" + pegsHeld.ToString();
         arrow.SetActive(false);
         waitingOnPegs = false;
