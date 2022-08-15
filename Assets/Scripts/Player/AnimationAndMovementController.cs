@@ -54,6 +54,13 @@ public class AnimationAndMovementController : MonoBehaviour
     public TimmyGuessManager timmyGuessManager;
     public bool canDropOff = false;
 
+    private AudioManager audioManager;
+    private bool stoppedDragging;
+    private void Start()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
+    }
+
     void Awake()
     {
         characterController = GetComponent<CharacterController>();
@@ -101,6 +108,7 @@ public class AnimationAndMovementController : MonoBehaviour
     {
         if (!isJumping && characterController.isGrounded && isJumpPressed && !isDragging)
         {
+            audioManager.Play("Jump",false);
             runningParticleSystem.Stop();
             impact.transform.position = impactPosition.position;
             impact.Stop();
@@ -174,6 +182,7 @@ public class AnimationAndMovementController : MonoBehaviour
         if(canDropOff)
         {
             timmyGuessManager.DepositAll();
+            audioManager.Play("Deposit", false);
         } else
         {
             if (isDragging && tilesManager.badPlacement)
@@ -192,6 +201,8 @@ public class AnimationAndMovementController : MonoBehaviour
 
             if (isDragging)
             {
+                audioManager.Play("Drag", true);
+                audioManager.Play("DragStart", false);
                 dragPrompt.SetActive(false);
                 // dragOrigPos = transform.position;
                 // draggingGameObjOrigPos = draggingGameObj.transform.position;
@@ -202,6 +213,7 @@ public class AnimationAndMovementController : MonoBehaviour
             }
             else if (wasDragging)
             {
+                audioManager.Stop("Drag");
                 dragPrompt.SetActive(true);
                 animator.SetBool(isPullingHash, false);
                 animator.SetBool(isPushingHash, false);
@@ -246,6 +258,15 @@ public class AnimationAndMovementController : MonoBehaviour
                 
             animator.SetBool(isWalkingHash, false);
             animator.SetBool(isRunningHash, false);
+            if(!isMovementPressed)
+            {
+                audioManager.Stop("Drag");
+                stoppedDragging = true;
+            } else if (stoppedDragging)
+            {
+                audioManager.Play("Drag", true);
+                stoppedDragging = false;
+            }
         }
         else
         {

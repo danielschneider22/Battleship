@@ -13,7 +13,7 @@ public class TilesAttackManager : MonoBehaviour
     private float attackTimer = 4f;
     private float howLongToWait = 8f;
     private float overallTimer = 0f;
-    private int round = 0;
+    public int round = 0;
     public List<(int, int)> attackingList = new List<(int, int)>();
     public int numPegsForRound;
     public Transform EnemyPegsRemaining;
@@ -24,6 +24,11 @@ public class TilesAttackManager : MonoBehaviour
     public GameObject RoundOverBackdrop;
     public AnimationAndMovementController animController;
     public Sprite reticleSearching;
+    private AudioManager audiomanager;
+    private void Start()
+    {
+        audiomanager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
+    }
     private void MakeAttack()
     {
         (int, int) randomTile = (-1, -1);
@@ -290,12 +295,6 @@ public class TilesAttackManager : MonoBehaviour
 
     }
 
-    
-
-    public void Start()
-    {
-        StartRound();
-    }
 
     public void FinishRound()
     {
@@ -309,6 +308,7 @@ public class TilesAttackManager : MonoBehaviour
         RoundOverRemainingOtherStuff.SetActive(true);
         RoundOverBackdrop.SetActive(true);
         animController.enabled = false;
+        audiomanager.Play("Victory", false);
     }
 
     public void StartRound()
@@ -333,21 +333,21 @@ public class TilesAttackManager : MonoBehaviour
         } else if(round == 2)
         {
             numPegsForRound = 8;
-            howLongToWait = 7f;
+            howLongToWait = 6f;
         }
         else if (round == 3)
         {
-            numPegsForRound = 30;
-            howLongToWait = 8f;
+            numPegsForRound = 20;
+            howLongToWait = 7.5f;
         }
         else if (round == 4)
         {
-            numPegsForRound = 30;
+            numPegsForRound = 26;
             howLongToWait = 7f;
         }
         else if (round == 5)
         {
-            numPegsForRound = 40;
+            numPegsForRound = 26;
             howLongToWait = 8f;
         }
 

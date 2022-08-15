@@ -13,6 +13,7 @@ public class GameOverManager : MonoBehaviour
     public Button nextRoundButton;
     public GameObject EnemyTiles;
     public Transform enemyShips;
+    private AudioManager audiomanager;
     public void DoQuit()
     {
         Application.Quit();
@@ -26,10 +27,15 @@ public class GameOverManager : MonoBehaviour
         hasWon = true;
         nextRoundButton.interactable = false;
     }
+    private void Start()
+    {
+        audiomanager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
+    }
     public void Update()
     {
         if(hasWon && seeVictoryTimer > 3f)
         {
+            audiomanager.Play("Victory", false);
             EnemyTiles.SetActive(false);
             foreach(Transform child in enemyShips)
             {

@@ -6,13 +6,12 @@ using UnityEngine.UI;
 public class AdjustMusicVolume : MonoBehaviour
 {
     public AudioSource audioSource;
-    private Slider slider;
+    public Slider slider;
 
     float origVolume;
 
     private void Awake()
     {
-        slider = GameObject.FindGameObjectWithTag("MusicSlider").GetComponent<Slider>();
         origVolume = audioSource.volume;
         audioSource.volume = slider.value * origVolume;
     }

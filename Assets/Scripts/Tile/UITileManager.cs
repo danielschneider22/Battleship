@@ -16,10 +16,16 @@ public class UITileManager : MonoBehaviour
     public Color destroyedColor;
     public Color activeColor;
     private UITilesManager uTilesManager;
+    private AudioManager audiomanager;
 
     private void Awake()
     {
         uTilesManager = transform.parent.GetComponent<UITilesManager>();
+
+    }
+    private void Start()
+    {
+        audiomanager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
     }
 
     public void MakeInactiveTile()
@@ -65,8 +71,10 @@ public class UITileManager : MonoBehaviour
         if (shipController == null)
         {
             GetComponent<Image>().enabled = false;
+            audiomanager.Play("Splash", false);
         } else
         {
+            audiomanager.Play("Explosion", false);
             shipController.DoHit((tilePos));
             if(shipController.shouldClearCoor)
             {

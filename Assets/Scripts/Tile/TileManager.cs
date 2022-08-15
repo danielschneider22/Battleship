@@ -15,16 +15,26 @@ public class TileManager : MonoBehaviour
     public (int, int) tilePos;
     private ParticleSystem explosionParticleSystem;
     private TilesAttackManager tilesAttackManager;
+    private AudioManager audiomanager;
 
     private void Start()
     {
         tilesManager = transform.parent.GetComponent<TilesManager>();
         tilesAttackManager = transform.parent.GetComponent<TilesAttackManager>();
         explosionParticleSystem = explosion.transform.GetChild(0).GetComponent<ParticleSystem>();
+        audiomanager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
+    }
+
+    public void playDanger()
+    {
+        if (tilesAttackManager.inAttackRound) { 
+            audiomanager.Play("Danger", true);
+        }
     }
     public void doExplosion()
     {
-        if(tilesAttackManager.inAttackRound)
+        audiomanager.Stop("Danger");
+        if (tilesAttackManager.inAttackRound)
         {
             explosion.SetActive(true);
         }
@@ -72,6 +82,10 @@ public class TileManager : MonoBehaviour
             }
         }
         transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
+        if (tilesAttackManager.inAttackRound)
+        {
+            audiomanager.Play("Explosion", false);
+        }
     }
 
     private void Update()

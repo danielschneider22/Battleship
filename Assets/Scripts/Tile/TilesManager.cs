@@ -256,7 +256,7 @@ public class TilesManager : MonoBehaviour
         }
     }
 
-    private void Update()
+    /* private void Update()
     {
         if(correctingTimer >= 5f && !animController.isDragging)
         {
@@ -264,5 +264,5 @@ public class TilesManager : MonoBehaviour
             correctingTimer = 0f;
         }
         correctingTimer += Time.deltaTime;
-    }
+    } */
 }

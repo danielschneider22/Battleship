@@ -19,6 +19,12 @@ public class ShipController : MonoBehaviour
     public Canvas gameOverCanvas;
     public Canvas winningCanvas;
     public TimmyGuessManager timmyGuessManager;
+    private AudioManager audiomanager;
+
+    private void Start()
+    {
+        audiomanager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
+    }
 
     public void DoHit((int,int) location)
     {
@@ -27,6 +33,7 @@ public class ShipController : MonoBehaviour
         {
             if(coor.Item1 == location.Item1 && coor.Item2 == location.Item2 && !pegHits.Contains(i))
             {
+                // audiomanager.Play("ShipDeath", false);
                 pegHits.Add(i);
                 // ship.GetComponent<Animator>().enabled = false;
                 PegSpots.transform.GetChild(i).gameObject.SetActive(true);
@@ -41,7 +48,6 @@ public class ShipController : MonoBehaviour
                     if(!isEnemyShip)
                     {
                         transform.GetChild(0).GetComponent<Animator>().SetTrigger("ShipDeath");
-                        ClearShipCoor();
                         bool gameover = true;
                         foreach (Transform ship in tilesManager.ships)
                         {
@@ -83,11 +89,15 @@ public class ShipController : MonoBehaviour
             }
             i = i + 1;
         }
+        if(shouldClearCoor)
+        {
+            ClearShipCoor();
+        }
     }
 
     public void ClearShipCoor()
     {
-        if (shouldClearCoor && !isEnemyShip)
+        if (!isEnemyShip)
         {
             foreach ((int, int) coor in shipCoord)
             {

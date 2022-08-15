@@ -11,12 +11,11 @@ public class AudioManager : MonoBehaviour
 
     public static AudioManager instance;
 
-    private Slider slider;
+    public Slider slider;
     public bool shouldDestroy;
 
     private void Awake()
     {
-        slider = GameObject.FindGameObjectWithTag("SoundSlider").GetComponent<Slider>();
 
         if (!shouldDestroy)
         {
@@ -43,7 +42,7 @@ public class AudioManager : MonoBehaviour
         
     }
 
-    public void Play(string name, bool playForAll)
+    public void Play(string name, bool playLooped)
     {
         try{
             Sound s = Array.Find(sounds, sound => sound.name == name);
@@ -54,6 +53,7 @@ public class AudioManager : MonoBehaviour
             {
                 s.source.volume = origVol * slider.value;
             }
+            s.source.loop = playLooped;
             s.source.Play();
         }
         catch (Exception e)
