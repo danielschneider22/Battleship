@@ -29,7 +29,7 @@ public class TilesAttackManager : MonoBehaviour
     {
         audiomanager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
     }
-    private void MakeAttack()
+    public void MakeAttack()
     {
         (int, int) randomTile = (-1, -1);
         List<(int, int)> allCoord = new List<(int, int)>();

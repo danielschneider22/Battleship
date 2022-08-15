@@ -18,6 +18,7 @@ public class TimmyGuessManager : MonoBehaviour
 
     public bool waitingOnPegs = false;
     public TextMeshProUGUI pegsInInventory;
+    public TutorialManager tutorialManager;
 
     private List<(int, int)> pickedList = new List<(int, int)>();
 
@@ -43,7 +44,8 @@ public class TimmyGuessManager : MonoBehaviour
     public void IncreasePegsHeld()
     {
         pegsHeld = pegsHeld + 1;
-        pegsHeldText.text = "x" + pegsHeld.ToString(); 
+        pegsHeldText.text = "x" + pegsHeld.ToString();
+        tutorialManager.didGrabPeg = true;
     }
 
     public void UpdateInventoryText()

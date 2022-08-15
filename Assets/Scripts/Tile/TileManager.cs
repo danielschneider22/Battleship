@@ -16,6 +16,7 @@ public class TileManager : MonoBehaviour
     private ParticleSystem explosionParticleSystem;
     private TilesAttackManager tilesAttackManager;
     private AudioManager audiomanager;
+    public TutorialManager tutorialManager;
 
     private void Start()
     {
@@ -34,7 +35,7 @@ public class TileManager : MonoBehaviour
     public void doExplosion()
     {
         audiomanager.Stop("Danger");
-        if (tilesAttackManager.inAttackRound)
+        if (tilesAttackManager.inAttackRound || tutorialManager.inTutorial)
         {
             explosion.SetActive(true);
         }
@@ -60,7 +61,7 @@ public class TileManager : MonoBehaviour
         }
 
 
-        if (shipController != null)
+        if (shipController != null && !tutorialManager.inTutorial)
         {
             transform.GetChild(0).GetComponent<MeshRenderer>().material = darkBlueMaterial;
             if (tilesAttackManager.inAttackRound) { 
@@ -68,8 +69,13 @@ public class TileManager : MonoBehaviour
             }
         } else
         {
+            if(shipController != null)
+            {
+                tutorialManager.messedUpMissingExplosive = true;
+            }
+            tutorialManager.didAvoidExplosion = true;
             transform.GetChild(0).GetComponent<MeshRenderer>().material = blueMaterial;
-            if (tilesAttackManager.inAttackRound)
+            if (tilesAttackManager.inAttackRound || tutorialManager.inTutorial)
             {
                 if (doNotCreatePeg)
                 {
@@ -78,11 +84,17 @@ public class TileManager : MonoBehaviour
                 else
                 {
                     PegCollider.SetActive(true);
+                    if(tutorialManager.inTutorial) {
+                        PegCollider.GetComponent<Animator>().enabled = false;
+                    } else
+                    {
+                        PegCollider.GetComponent<Animator>().enabled = true;
+                    }
                 }
             }
         }
         transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
-        if (tilesAttackManager.inAttackRound)
+        if (tilesAttackManager.inAttackRound || tutorialManager.inTutorial)
         {
             audiomanager.Play("Explosion", false);
         }

@@ -56,6 +56,7 @@ public class AnimationAndMovementController : MonoBehaviour
 
     private AudioManager audioManager;
     private bool stoppedDragging;
+    public TutorialManager tutorialManager;
     private void Start()
     {
         audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
@@ -108,6 +109,7 @@ public class AnimationAndMovementController : MonoBehaviour
     {
         if (!isJumping && characterController.isGrounded && isJumpPressed && !isDragging)
         {
+            tutorialManager.didJump = true;
             audioManager.Play("Jump",false);
             runningParticleSystem.Stop();
             impact.transform.position = impactPosition.position;
@@ -183,6 +185,7 @@ public class AnimationAndMovementController : MonoBehaviour
         {
             timmyGuessManager.DepositAll();
             audioManager.Play("Deposit", false);
+            tutorialManager.didPutPegInBasket = true;
         } else
         {
             if (isDragging && tilesManager.badPlacement)
@@ -213,6 +216,7 @@ public class AnimationAndMovementController : MonoBehaviour
             }
             else if (wasDragging)
             {
+                tutorialManager.didMoveShip = true;
                 audioManager.Stop("Drag");
                 dragPrompt.SetActive(true);
                 animator.SetBool(isPullingHash, false);

@@ -16,4 +16,11 @@ public class StartGameManager : MonoBehaviour
         adjustMusicVolume.audioSource.clip = startGameMusic;
         adjustMusicVolume.audioSource.Play();
     }
+
+    public void ChangeMusic()
+    {
+        adjustMusicVolume.audioSource.Stop();
+        adjustMusicVolume.audioSource.clip = startGameMusic;
+        adjustMusicVolume.audioSource.Play();
+    }
 }
