@@ -23,4 +23,9 @@ public class CollectPeg : MonoBehaviour
         }
     }
 
+    public void DisableIfTooLong()
+    {
+        gameObject.SetActive(false);
+    }
+
 }

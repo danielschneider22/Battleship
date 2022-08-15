@@ -1033,6 +1033,7 @@ MonoBehaviour:
   EnemyPegsRemainingOtherStuff: {fileID: 739264627}
   RoundOverRemainingOtherStuff: {fileID: 358942947}
   RoundOverBackdrop: {fileID: 1903878048}
+  animController: {fileID: 167096979}
 --- !u!1 &47582189
 GameObject:
   m_ObjectHideFlags: 0
@@ -27276,6 +27277,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 35877702}
     m_Modifications:
+    - target: {fileID: 1417136472578477655, guid: 66107ecf759542247a0118bae2f4f42d,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417136472578477655, guid: 66107ecf759542247a0118bae2f4f42d,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417136472578477655, guid: 66107ecf759542247a0118bae2f4f42d,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5246765505891988920, guid: 66107ecf759542247a0118bae2f4f42d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7184855395982474884, guid: 66107ecf759542247a0118bae2f4f42d,
         type: 3}
       propertyPath: waitTime

@@ -49,6 +49,13 @@ public class TimmyGuessManager : MonoBehaviour
     public void UpdateInventoryText()
     {
         pegsInInventory.text = "x" + pegsInStorage.ToString();
+        if(pegsInStorage == 0)
+        {
+            pegsInInventory.color = Color.red;
+        } else
+        {
+            pegsInInventory.color = Color.white;
+        }
     }
 
     private void showArrow()

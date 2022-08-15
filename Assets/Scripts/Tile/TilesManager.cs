@@ -22,7 +22,7 @@ public class TilesManager : MonoBehaviour
     private float correctingTimer;
     public AnimationAndMovementController animController;
 
-    public void PlaceShipProperly(GameObject ship)
+    public void PlaceShipProperly(GameObject ship, bool doReposition)
     {
         Transform topPegSpot = ship.transform.GetChild(0).GetChild(0).GetChild(0);
         float minDistance = 10000f;
@@ -37,7 +37,11 @@ public class TilesManager : MonoBehaviour
             }
         }
         Vector3 distBetween = closestChild.GetChild(3).position - topPegSpot.position;
-        ship.transform.position = distBetween + ship.transform.position;
+        if(doReposition)
+        {
+            ship.transform.position = distBetween + ship.transform.position;
+        }
+        
         (int startX, int startY) = findTilePos(closestChild);
         ShipController shipController = ship.GetComponent<ShipController>();
         shipController.shipCoord.Clear();
@@ -76,7 +80,7 @@ public class TilesManager : MonoBehaviour
         }
         foreach (Transform child in ships)
         {
-            PlaceShipProperly(child.gameObject);
+            PlaceShipProperly(child.gameObject, false);
         }
     }
 
@@ -248,7 +252,7 @@ public class TilesManager : MonoBehaviour
 
         foreach (Transform child in ships)
         {
-            PlaceShipProperly(child.gameObject);
+            PlaceShipProperly(child.gameObject, true);
         }
     }
 

@@ -208,7 +208,7 @@ public class AnimationAndMovementController : MonoBehaviour
                 draggingGameObj.transform.parent = draggingGameObjOrigParent;
                 draggingGameObj.GetComponent<Rigidbody>().freezeRotation = false;
                 draggingGameObj.transform.rotation = draggingGameObjOrigRotation;
-                tilesManager.PlaceShipProperly(draggingGameObj);
+                tilesManager.PlaceShipProperly(draggingGameObj, true);
             }
         }
         

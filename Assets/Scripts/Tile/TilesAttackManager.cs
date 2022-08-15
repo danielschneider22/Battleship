@@ -22,6 +22,7 @@ public class TilesAttackManager : MonoBehaviour
     public GameObject EnemyPegsRemainingOtherStuff;
     public GameObject RoundOverRemainingOtherStuff;
     public GameObject RoundOverBackdrop;
+    public AnimationAndMovementController animController;
     private void MakeAttack()
     {
         (int, int) randomTile = (-1, -1);
@@ -105,6 +106,7 @@ public class TilesAttackManager : MonoBehaviour
         EnemyPegsRemainingOtherStuff.SetActive(false);
         RoundOverRemainingOtherStuff.SetActive(true);
         RoundOverBackdrop.SetActive(true);
+        animController.enabled = false;
     }
 
     public void StartRound()
@@ -117,13 +119,14 @@ public class TilesAttackManager : MonoBehaviour
         EnemyPegsRemainingOtherStuff.SetActive(true);
         RoundOverRemainingOtherStuff.SetActive(false);
         RoundOverBackdrop.SetActive(false);
+        animController.enabled = true;
 
         round = round + 1;
         pegsAdded = 0;
         inAttackRound = true;
         if (round == 1)
         {
-            numPegsForRound = 2;
+            numPegsForRound = 5;
             
         } else if(round == 2)
         {
