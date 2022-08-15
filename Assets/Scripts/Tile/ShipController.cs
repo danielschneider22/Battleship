@@ -16,6 +16,7 @@ public class ShipController : MonoBehaviour
 
     public bool shouldClearCoor;
     public bool isEnemyShip;
+    public Canvas gameOverCanvas;
 
     public void DoHit((int,int) location)
     {
@@ -38,6 +39,19 @@ public class ShipController : MonoBehaviour
                     if(!isEnemyShip)
                     {
                         transform.GetChild(0).GetComponent<Animator>().SetTrigger("ShipDeath");
+                        bool gameover = true;
+                        foreach (Transform ship in tilesManager.ships)
+                        {
+                            var theController = ship.GetComponent<ShipController>();
+                            if (theController.numPegs != theController.pegHits.Count)
+                            {
+                                gameover = false;
+                            }
+                        }
+                        if(gameover)
+                        {
+                            gameOverCanvas.enabled = true;
+                        }
                     }
                     shouldClearCoor = true;
                 }

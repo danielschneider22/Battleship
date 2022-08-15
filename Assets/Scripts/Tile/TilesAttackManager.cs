@@ -10,6 +10,9 @@ public class TilesAttackManager : MonoBehaviour
     public Sprite reticleLocked;
 
     private float attackTimer = 4f;
+    private float howLongToWait = 8f;
+    private float overallTimer = 0f;
+    private string difficulty = "really easy";
     public List<(int, int)> attackingList = new List<(int, int)>();
     private void MakeAttack()
     {
@@ -32,13 +35,24 @@ public class TilesAttackManager : MonoBehaviour
         {
             allCoord.Remove(alreadyAttacking);
         }
-        randomTile = allCoord[Random.Range(0, allCoord.Count)];
+        if(allCoord.Count > 0)
+        {
+            randomTile = allCoord[Random.Range(0, allCoord.Count)];
+        } else
+        {
+            do
+            {
+                randomTile = (Random.Range(0, 8), Random.Range(0, 7));
+            } while (attackingList.Contains(randomTile));
+            
+        }
         attackingList.Add(randomTile);
         GameObject tileObject = tilesManager.tiles[randomTile.Item1, randomTile.Item2].transform.GetChild(0).gameObject;
         tileObject.GetComponent<MeshRenderer>().material = darkRed;
         tileObject.transform.GetChild(0).gameObject.SetActive(true);
         tileObject.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = reticleLocked;
         tileObject.transform.parent.GetComponent<Animator>().SetTrigger("Explode");
+
     }
 
     // Update is called once per frame
@@ -47,8 +61,26 @@ public class TilesAttackManager : MonoBehaviour
         if(attackTimer <= 0f)
         {
             MakeAttack();
-            attackTimer = 4f;
+            attackTimer = howLongToWait;
         }
+        if (overallTimer > 90f)
+        {
+            howLongToWait = 5f;
+            difficulty = "hard";
+        }
+        else if (overallTimer > 60f)
+        {
+            howLongToWait = 6f;
+            difficulty = "medium";
+        }
+        else if (overallTimer > 30f)
+        {
+            howLongToWait = 7f;
+            difficulty = "easy";
+        }
+        
+        
+        overallTimer += Time.deltaTime;
         attackTimer -= Time.deltaTime;
     }
 }

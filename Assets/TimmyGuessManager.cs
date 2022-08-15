@@ -28,7 +28,7 @@ public class TimmyGuessManager : MonoBehaviour
     public void DepositAll()
     {
         pegsInStorage = pegsInStorage + pegsHeld;
-        for(var i = 0; i < pegsInStorage; i++ )
+        for(var i = 0; i < pegsHeld; i++ )
         {
             GameObject newObj = Instantiate(pegToCopy, pegsContainer);
             newObj.SetActive(true);
