@@ -7,10 +7,15 @@ public class TimmyGuessManager : MonoBehaviour
 {
     public int pegsInStorage = 3;
     private UITilesManager uTilesManager;
-    public float timeUntilPick = 5f;
+    public float timeUntilPick = 8f;
     public float pickTimer = 0f;
     public int pegsHeld = 0;
     public TextMeshProUGUI pegsHeldText;
+    public Transform pegsContainer;
+
+    public GameObject arrow;
+
+    public bool waitingOnPegs = false;
 
 
     private List<(int, int)> pickedList = new List<(int, int)>();
@@ -24,15 +29,33 @@ public class TimmyGuessManager : MonoBehaviour
     {
         pegsHeld = pegsHeld + 1;
         pegsHeldText.text = "x" + pegsHeld.ToString();
+        arrow.SetActive(false);
+        waitingOnPegs = false;
+    }
+
+    private void showArrow()
+    {
+        arrow.SetActive(true);
+    }
+    private void doDialogPrompt()
+    {
 
     }
 
     private void Update()
     {
+        if(pegsInStorage == 0 && !waitingOnPegs)
+        {
+            showArrow();
+            doDialogPrompt();
+            waitingOnPegs = true;
+        }
         pickTimer += Time.deltaTime;
-        if(pickTimer >= timeUntilPick)
+        if(pickTimer >= timeUntilPick && pegsInStorage > 0)
         {
             uTilesManager.activeTile.OnReveal();
+            pegsInStorage = pegsInStorage - 1;
+            Destroy(pegsContainer.GetChild(0).gameObject);
             pickedList.Add(uTilesManager.activeTile.tilePos);
             bool foundRandomTile = false;
             do
