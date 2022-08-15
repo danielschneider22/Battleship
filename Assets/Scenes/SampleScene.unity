@@ -1034,6 +1034,7 @@ MonoBehaviour:
   RoundOverRemainingOtherStuff: {fileID: 358942947}
   RoundOverBackdrop: {fileID: 1903878048}
   animController: {fileID: 167096979}
+  reticleSearching: {fileID: 21300000, guid: fb30343d8efb1244da3f29ceee4e0604, type: 3}
 --- !u!1 &47582189
 GameObject:
   m_ObjectHideFlags: 0

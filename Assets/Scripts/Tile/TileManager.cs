@@ -8,6 +8,7 @@ public class TileManager : MonoBehaviour
     public Material blueMaterial;
     public Material darkBlueMaterial;
     public GameObject PegCollider;
+    public bool doNotCreatePeg;
     private TilesManager tilesManager;
 
     public (int, int) tilePos;
@@ -41,7 +42,13 @@ public class TileManager : MonoBehaviour
         } else
         {
             transform.GetChild(0).GetComponent<MeshRenderer>().material = blueMaterial;
-            PegCollider.SetActive(true);
+            if(doNotCreatePeg)
+            {
+                doNotCreatePeg = false;
+            } else
+            {
+                PegCollider.SetActive(true);
+            }
         }
         transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
     }
