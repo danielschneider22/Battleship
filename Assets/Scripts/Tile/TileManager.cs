@@ -25,6 +25,13 @@ public class TileManager : MonoBehaviour
         explosion.SetActive(true);
         ShipController shipController = tilesManager.getShipControllerIfActiveCoord(tilePos.Item1, tilePos.Item2);
         tilesAttackManager.attackingList.Remove((tilePos.Item1, tilePos.Item2));
+        tilesAttackManager.EnemyPegsRemaining.GetChild(tilesAttackManager.pegsAdded).gameObject.SetActive(false);
+        tilesAttackManager.pegsAdded = tilesAttackManager.pegsAdded + 1;
+        if (tilesAttackManager.pegsAdded == tilesAttackManager.numPegsForRound)
+        {
+            tilesAttackManager.inAttackRound = false;
+        }
+
         if (shipController != null)
         {
             transform.GetChild(0).GetComponent<MeshRenderer>().material = darkBlueMaterial;

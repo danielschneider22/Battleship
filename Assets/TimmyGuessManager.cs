@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class TimmyGuessManager : MonoBehaviour
 {
-    public int pegsInStorage = 3;
+    public int pegsInStorage = 0;
     private UITilesManager uTilesManager;
     public float timeUntilPick = 8f;
     public float pickTimer = 0f;
@@ -37,51 +37,49 @@ public class TimmyGuessManager : MonoBehaviour
         }
         pegsHeld = 0;
         pegsHeldText.text = "x" + pegsHeld.ToString();
+        waitingOnPegs = false;
+        arrow.SetActive(false);
     }
     public void IncreasePegsHeld()
     {
-        pegsHeld = Mathf.Min(pegsHeld + 1, 9);
-        pegsHeldText.text = "x" + pegsHeld.ToString();
-        arrow.SetActive(false);
-        waitingOnPegs = false;
+        pegsHeld = pegsHeld + 1;
+        pegsHeldText.text = "x" + pegsHeld.ToString(); 
     }
 
     private void showArrow()
     {
         arrow.SetActive(true);
     }
-    private void doDialogPrompt()
-    {
 
-    }
-
-    private void Update()
+    public void makePick()
     {
-        if(pegsInStorage == 0 && !waitingOnPegs)
-        {
-            showArrow();
-            doDialogPrompt();
-            waitingOnPegs = true;
-        }
-        pickTimer += Time.deltaTime;
-        if(pickTimer >= timeUntilPick && pegsInStorage > 0)
+        if(pegsInStorage > 0)
         {
             uTilesManager.activeTile.OnReveal();
             pegsInStorage = pegsInStorage - 1;
             Destroy(pegsContainer.GetChild(0).gameObject);
             pickedList.Add(uTilesManager.activeTile.tilePos);
-            bool foundRandomTile = false;
+            /* bool foundRandomTile = false;
             do
             {
                 (int, int) randomTile = (Random.Range(0, 8), Random.Range(0, 7));
-                if(!pickedList.Contains(randomTile))
+                if (!pickedList.Contains(randomTile))
                 {
                     foundRandomTile = true;
                     uTilesManager.tiles[randomTile.Item1, randomTile.Item2].MakeActiveTile();
                 }
             }
-            while (!foundRandomTile);
-            pickTimer = 0f;
+            while (!foundRandomTile);*/
         }
+        
     }
+
+    private void Update()
+    {
+        if(pegsHeld > 0 && !waitingOnPegs)
+        {
+            showArrow();
+            waitingOnPegs = true;
+        }
+    } 
 }

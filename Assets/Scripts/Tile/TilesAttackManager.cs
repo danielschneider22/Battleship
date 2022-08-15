@@ -12,8 +12,12 @@ public class TilesAttackManager : MonoBehaviour
     private float attackTimer = 4f;
     private float howLongToWait = 8f;
     private float overallTimer = 0f;
-    private string difficulty = "really easy";
+    private int round = 0;
     public List<(int, int)> attackingList = new List<(int, int)>();
+    public int numPegsForRound;
+    public Transform EnemyPegsRemaining;
+    public int pegsAdded = 0;
+    public bool inAttackRound = false;
     private void MakeAttack()
     {
         (int, int) randomTile = (-1, -1);
@@ -55,34 +59,39 @@ public class TilesAttackManager : MonoBehaviour
             tileObject.transform.GetChild(0).gameObject.SetActive(true);
             tileObject.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = reticleLocked;
             tileObject.transform.parent.GetComponent<Animator>().SetTrigger("Explode");
+            
         }
 
+    }
+
+    public void Start()
+    {
+        StartRound();
+    }
+
+    public void StartRound()
+    {
+        round = round + 1;
+        pegsAdded = 0;
+        inAttackRound = true;
+        if (round == 1)
+        {
+            numPegsForRound = 4;
+            for(var i = 0; i< numPegsForRound; i++)
+            {
+                EnemyPegsRemaining.GetChild(i).gameObject.SetActive(true);
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(attackTimer <= 0f)
+        if(attackTimer <= 0f && inAttackRound)
         {
             MakeAttack();
             attackTimer = howLongToWait;
         }
-        if (overallTimer > 90f)
-        {
-            howLongToWait = 5f;
-            difficulty = "hard";
-        }
-        else if (overallTimer > 60f)
-        {
-            howLongToWait = 6f;
-            difficulty = "medium";
-        }
-        else if (overallTimer > 30f)
-        {
-            howLongToWait = 7f;
-            difficulty = "easy";
-        }
-        
         
         overallTimer += Time.deltaTime;
         attackTimer -= Time.deltaTime;

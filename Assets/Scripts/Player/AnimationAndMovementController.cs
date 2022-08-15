@@ -174,39 +174,44 @@ public class AnimationAndMovementController : MonoBehaviour
         if(canDropOff)
         {
             timmyGuessManager.DepositAll();
-        }
-        if(isDragging && tilesManager.badPlacement)
-        {
-            return;
-        }
-        bool wasDragging = isDragging;
-        if(isDragging)
-        {
-            isDragging = false;
         } else
         {
-            isDragging = canDrag;
-        }
+            if (isDragging && tilesManager.badPlacement)
+            {
+                return;
+            }
+            bool wasDragging = isDragging;
+            if (isDragging)
+            {
+                isDragging = false;
+            }
+            else
+            {
+                isDragging = canDrag;
+            }
 
-        if(isDragging)
-        {
-            dragPrompt.SetActive(false);
-            // dragOrigPos = transform.position;
-            // draggingGameObjOrigPos = draggingGameObj.transform.position;
-            draggingGameObjOrigParent = draggingGameObj.transform.parent;
-            draggingGameObj.transform.parent = transform;
-            draggingGameObj.GetComponent<Rigidbody>().freezeRotation = true;
-            draggingGameObjOrigRotation = draggingGameObj.transform.rotation;
-        } else if(wasDragging)
-        {
-            dragPrompt.SetActive(true);
-            animator.SetBool(isPullingHash, false);
-            animator.SetBool(isPushingHash, false);
-            draggingGameObj.transform.parent = draggingGameObjOrigParent;
-            draggingGameObj.GetComponent<Rigidbody>().freezeRotation = false;
-            draggingGameObj.transform.rotation = draggingGameObjOrigRotation;
-            tilesManager.PlaceShipProperly(draggingGameObj);
+            if (isDragging)
+            {
+                dragPrompt.SetActive(false);
+                // dragOrigPos = transform.position;
+                // draggingGameObjOrigPos = draggingGameObj.transform.position;
+                draggingGameObjOrigParent = draggingGameObj.transform.parent;
+                draggingGameObj.transform.parent = transform;
+                draggingGameObj.GetComponent<Rigidbody>().freezeRotation = true;
+                draggingGameObjOrigRotation = draggingGameObj.transform.rotation;
+            }
+            else if (wasDragging)
+            {
+                dragPrompt.SetActive(true);
+                animator.SetBool(isPullingHash, false);
+                animator.SetBool(isPushingHash, false);
+                draggingGameObj.transform.parent = draggingGameObjOrigParent;
+                draggingGameObj.GetComponent<Rigidbody>().freezeRotation = false;
+                draggingGameObj.transform.rotation = draggingGameObjOrigRotation;
+                tilesManager.PlaceShipProperly(draggingGameObj);
+            }
         }
+        
     }
 
     void onMovementInput (InputAction.CallbackContext context)

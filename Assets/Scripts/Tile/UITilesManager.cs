@@ -94,7 +94,7 @@ public class UITilesManager : MonoBehaviour
             PlaceShip(child.gameObject.GetComponent<ShipController>());
         }
 
-        (int, int) randomTile = (Random.Range(0, 8), Random.Range(0, 7));
-        tiles[randomTile.Item1, randomTile.Item2].MakeActiveTile();
+        // (int, int) randomTile = (Random.Range(0, 8), Random.Range(0, 7));
+        // tiles[randomTile.Item1, randomTile.Item2].MakeActiveTile();
     }
 }
