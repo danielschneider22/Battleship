@@ -333,22 +333,22 @@ public class TilesAttackManager : MonoBehaviour
         } else if(round == 2)
         {
             numPegsForRound = 8;
-            howLongToWait = 6f;
+            howLongToWait = 7f;
         }
         else if (round == 3)
         {
-            numPegsForRound = 20;
+            numPegsForRound = 25;
             howLongToWait = 7.5f;
         }
         else if (round == 4)
         {
-            numPegsForRound = 26;
+            numPegsForRound = 18;
             howLongToWait = 7f;
         }
         else if (round == 5)
         {
-            numPegsForRound = 26;
-            howLongToWait = 8f;
+            numPegsForRound = 18;
+            howLongToWait = 7f;
         }
 
         for (var i = 0; i < numPegsForRound; i++)
@@ -409,7 +409,7 @@ public class TilesAttackManager : MonoBehaviour
                     }
                     else
                     {
-                        MakeBadAttack();
+                        MakeAttack();
                         MakeBadAttack();
                         MakeBadAttack();
                     }
@@ -421,7 +421,7 @@ public class TilesAttackManager : MonoBehaviour
                 {
                     if (Random.Range(0, 4) == 0)
                     {
-                        if (Random.Range(0, 2) == 0)
+                        if (Random.Range(0, 4) > 0)
                         {
                             MakeRowAttack();
                         }
@@ -429,7 +429,7 @@ public class TilesAttackManager : MonoBehaviour
                         {
                             MakeColumnAttack();
                         }
-                        MakeBadAttack();
+                        MakeAttack();
                     }
                     else
                     {
@@ -438,7 +438,7 @@ public class TilesAttackManager : MonoBehaviour
                             MakeBoxAttack();
                         } else
                         {
-                            MakeBadAttack();
+                            MakeAttack();
                             MakeBadAttack();
                             MakeBadAttack();
                         }

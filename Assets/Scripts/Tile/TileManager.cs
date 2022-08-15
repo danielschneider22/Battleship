@@ -28,7 +28,7 @@ public class TileManager : MonoBehaviour
 
     public void playDanger()
     {
-        if (tilesAttackManager.inAttackRound) { 
+        if (tilesAttackManager.inAttackRound || tutorialManager.inTutorial) { 
             audiomanager.Play("Danger", true);
         }
     }

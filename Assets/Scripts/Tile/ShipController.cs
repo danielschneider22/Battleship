@@ -76,6 +76,7 @@ public class ShipController : MonoBehaviour
                         if (gameover)
                         {
                             winningCanvas.GetComponent<GameOverManager>().DoWin();
+                            audiomanager.Play("Victory", false);
                             // timmyGuessManager.enabled = false;
                         }
                     }

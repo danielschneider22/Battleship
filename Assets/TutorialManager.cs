@@ -20,7 +20,7 @@ public class TutorialManager : MonoBehaviour
 
     public float speechTimer = 21223429093f;
 
-    private string speechId = "";
+    public string speechId = "";
     public GameObject startGameCanvas;
 
     public StartGameManager startGameManager;
@@ -86,7 +86,7 @@ public class TutorialManager : MonoBehaviour
             {
                 if(didJump)
                 {
-                    timmy.text = "Great! Try moving some of those ships around. (Grab with E, release with E)";
+                    timmy.text = "Try moving some of those ships. (Grab with E, release with E). You can move ships through other ships while dragging.";
                     speechTimer = 3f;
                     speechId = "brandon2";
                 }
@@ -155,7 +155,7 @@ public class TutorialManager : MonoBehaviour
 
                 timmy.text = "Go over to the marked basket and press E to store it, so our cannons can use it next round!";
                 speechId = "timmy9";
-                speechTimer = 6f;
+                speechTimer = 3f;
                 break;
             }
             case "timmy9":
@@ -191,6 +191,15 @@ public class TutorialManager : MonoBehaviour
                 stopTimmyTalking();
                 speechId = "fake1";
                 speechTimer = 3f;
+                break;
+            }
+            case "wongame":
+            {
+                setTimmyTalking();
+                setBrandonTalking();
+                    timmy.text = "You did it! Great job!";
+                    brandon.text = "I lost? How could I lose?!";
+                speechTimer = 0f;
                 break;
             }
 

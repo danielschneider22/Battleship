@@ -14,6 +14,7 @@ public class GameOverManager : MonoBehaviour
     public GameObject EnemyTiles;
     public Transform enemyShips;
     private AudioManager audiomanager;
+    public TutorialManager tutorialManager;
     public void DoQuit()
     {
         Application.Quit();
@@ -57,6 +58,7 @@ public class GameOverManager : MonoBehaviour
         }
         if (hasWon)
         {
+            tutorialManager.speechId = "wongame";
             seeVictoryTimer += Time.deltaTime;
             seeVictoryTimer2 += Time.deltaTime;
         }
