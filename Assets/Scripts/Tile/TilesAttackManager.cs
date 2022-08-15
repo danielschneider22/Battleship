@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TilesAttackManager : MonoBehaviour
 {
+    public UITilesManager uitilesManager;
     public TilesManager tilesManager;
     public Material red;
     public Material darkRed;
@@ -18,6 +19,9 @@ public class TilesAttackManager : MonoBehaviour
     public Transform EnemyPegsRemaining;
     public int pegsAdded = 0;
     public bool inAttackRound = false;
+    public GameObject EnemyPegsRemainingOtherStuff;
+    public GameObject RoundOverRemainingOtherStuff;
+    public GameObject RoundOverBackdrop;
     private void MakeAttack()
     {
         (int, int) randomTile = (-1, -1);
@@ -64,23 +68,72 @@ public class TilesAttackManager : MonoBehaviour
 
     }
 
+    private void MakeBadAttack()
+    {
+        (int, int) randomTile = (-1, -1);
+        if (attackingList.Count < 20)
+        {
+            do
+            {
+                randomTile = (Random.Range(0, 8), Random.Range(0, 7));
+            } while (attackingList.Contains(randomTile));
+
+            attackingList.Add(randomTile);
+            GameObject tileObject = tilesManager.tiles[randomTile.Item1, randomTile.Item2].transform.GetChild(0).gameObject;
+            tileObject.GetComponent<MeshRenderer>().material = darkRed;
+            tileObject.transform.GetChild(0).gameObject.SetActive(true);
+            tileObject.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = reticleLocked;
+            tileObject.transform.parent.GetComponent<Animator>().SetTrigger("Explode");
+
+        }
+
+    }
+
     public void Start()
     {
         StartRound();
     }
 
+    public void FinishRound()
+    {
+        foreach(Transform child in uitilesManager.transform)
+        {
+            child.gameObject.SetActive(true);
+        }
+        uitilesManager.GetComponent<TimmyGuessManager>().UpdateInventoryText();
+        EnemyPegsRemaining.gameObject.SetActive(false);
+        EnemyPegsRemainingOtherStuff.SetActive(false);
+        RoundOverRemainingOtherStuff.SetActive(true);
+        RoundOverBackdrop.SetActive(true);
+    }
+
     public void StartRound()
     {
+        foreach (Transform child in uitilesManager.transform)
+        {
+            child.gameObject.SetActive(false);
+        }
+        EnemyPegsRemaining.gameObject.SetActive(true);
+        EnemyPegsRemainingOtherStuff.SetActive(true);
+        RoundOverRemainingOtherStuff.SetActive(false);
+        RoundOverBackdrop.SetActive(false);
+
         round = round + 1;
         pegsAdded = 0;
         inAttackRound = true;
         if (round == 1)
         {
-            numPegsForRound = 4;
-            for(var i = 0; i< numPegsForRound; i++)
-            {
-                EnemyPegsRemaining.GetChild(i).gameObject.SetActive(true);
-            }
+            numPegsForRound = 2;
+            
+        } else if(round == 2)
+        {
+            numPegsForRound = 8;
+            howLongToWait = 7f;
+        }
+
+        for (var i = 0; i < numPegsForRound; i++)
+        {
+            EnemyPegsRemaining.GetChild(i).gameObject.SetActive(true);
         }
     }
 
@@ -89,7 +142,24 @@ public class TilesAttackManager : MonoBehaviour
     {
         if(attackTimer <= 0f && inAttackRound)
         {
-            MakeAttack();
+            switch (round)
+            {
+                case (1):
+                {
+                    MakeAttack();
+                    break;
+                }
+                case (2):
+                {
+                    MakeAttack();
+                    if(Random.Range(0, 4) == 0)
+                    {
+                        MakeBadAttack();
+                    }
+                    break;
+                }
+            }
+            
             attackTimer = howLongToWait;
         }
         

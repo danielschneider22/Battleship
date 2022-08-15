@@ -17,7 +17,7 @@ public class TimmyGuessManager : MonoBehaviour
     public GameObject pegToCopy;
 
     public bool waitingOnPegs = false;
-
+    public TextMeshProUGUI pegsInInventory;
 
     private List<(int, int)> pickedList = new List<(int, int)>();
 
@@ -46,12 +46,17 @@ public class TimmyGuessManager : MonoBehaviour
         pegsHeldText.text = "x" + pegsHeld.ToString(); 
     }
 
+    public void UpdateInventoryText()
+    {
+        pegsInInventory.text = "x" + pegsInStorage.ToString();
+    }
+
     private void showArrow()
     {
         arrow.SetActive(true);
     }
 
-    public void makePick()
+    /* public void makePick()
     {
         if(pegsInStorage > 0)
         {
@@ -69,10 +74,10 @@ public class TimmyGuessManager : MonoBehaviour
                     uTilesManager.tiles[randomTile.Item1, randomTile.Item2].MakeActiveTile();
                 }
             }
-            while (!foundRandomTile);*/
+            while (!foundRandomTile);
         }
         
-    }
+    }*/
 
     private void Update()
     {

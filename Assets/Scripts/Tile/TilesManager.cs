@@ -19,6 +19,8 @@ public class TilesManager : MonoBehaviour
 
     public bool badPlacement;
     private List<(int, int)> badPlacementTiles = new List<(int, int)>();
+    private float correctingTimer;
+    public AnimationAndMovementController animController;
 
     public void PlaceShipProperly(GameObject ship)
     {
@@ -56,6 +58,25 @@ public class TilesManager : MonoBehaviour
                 shipController.shipCoord.Add((startX, y));
             }
             
+        }
+    }
+
+    private void CorrectAllMaterials()
+    {
+        for (int x = 0; x <= 7; x++)
+        {
+            for (int y = 0; y <= 6; y++)
+            {
+                MeshRenderer renderer = tiles[x, y].transform.GetChild(0).GetComponent<MeshRenderer>();
+                if (!renderer.material.name.Contains("RedMaterial"))
+                {
+                    renderer.material = lightBlue;
+                }
+            }
+        }
+        foreach (Transform child in ships)
+        {
+            PlaceShipProperly(child.gameObject);
         }
     }
 
@@ -229,5 +250,15 @@ public class TilesManager : MonoBehaviour
         {
             PlaceShipProperly(child.gameObject);
         }
+    }
+
+    private void Update()
+    {
+        if(correctingTimer >= 5f && !animController.isDragging)
+        {
+            CorrectAllMaterials();
+            correctingTimer = 0f;
+        }
+        correctingTimer += Time.deltaTime;
     }
 }

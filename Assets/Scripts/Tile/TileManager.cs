@@ -30,7 +30,9 @@ public class TileManager : MonoBehaviour
         if (tilesAttackManager.pegsAdded == tilesAttackManager.numPegsForRound)
         {
             tilesAttackManager.inAttackRound = false;
+            tilesAttackManager.FinishRound();
         }
+        
 
         if (shipController != null)
         {

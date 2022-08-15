@@ -47,6 +47,17 @@ public class UITileManager : MonoBehaviour
         GetComponent<Image>().color = activeColor;
         uTilesManager.activeTile = this;
     }
+    public void TimmyManagerClickButton()
+    {
+        TimmyGuessManager tGuessManager = uTilesManager.GetComponent<TimmyGuessManager>();
+        if (tGuessManager.pegsInStorage > 0)
+        {
+            tGuessManager.pegsInStorage = tGuessManager.pegsInStorage - 1;
+            Destroy(tGuessManager.pegsContainer.GetChild(0).gameObject);
+            tGuessManager.UpdateInventoryText();
+            OnReveal();
+        }
+    }
     public void OnReveal()
     {
         revealed = true;
