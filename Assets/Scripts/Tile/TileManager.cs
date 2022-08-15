@@ -9,6 +9,7 @@ public class TileManager : MonoBehaviour
     public Material darkBlueMaterial;
     public GameObject PegCollider;
     public bool doNotCreatePeg;
+    public bool doNotAddPeg;
     private TilesManager tilesManager;
 
     public (int, int) tilePos;
@@ -23,31 +24,51 @@ public class TileManager : MonoBehaviour
     }
     public void doExplosion()
     {
-        explosion.SetActive(true);
-        ShipController shipController = tilesManager.getShipControllerIfActiveCoord(tilePos.Item1, tilePos.Item2);
-        tilesAttackManager.attackingList.Remove((tilePos.Item1, tilePos.Item2));
-        tilesAttackManager.EnemyPegsRemaining.GetChild(tilesAttackManager.pegsAdded).gameObject.SetActive(false);
-        tilesAttackManager.pegsAdded = tilesAttackManager.pegsAdded + 1;
-        if (tilesAttackManager.pegsAdded == tilesAttackManager.numPegsForRound)
+        if(tilesAttackManager.inAttackRound)
         {
-            tilesAttackManager.inAttackRound = false;
-            tilesAttackManager.FinishRound();
+            explosion.SetActive(true);
         }
         
+        ShipController shipController = tilesManager.getShipControllerIfActiveCoord(tilePos.Item1, tilePos.Item2);
+        tilesAttackManager.attackingList.Remove((tilePos.Item1, tilePos.Item2));
+        if(tilesAttackManager.inAttackRound)
+        {
+            if (!doNotAddPeg)
+            {
+                tilesAttackManager.EnemyPegsRemaining.GetChild(tilesAttackManager.pegsAdded).gameObject.SetActive(false);
+                tilesAttackManager.pegsAdded = tilesAttackManager.pegsAdded + 1;
+                if (tilesAttackManager.pegsAdded == tilesAttackManager.numPegsForRound)
+                {
+                    tilesAttackManager.inAttackRound = false;
+                    tilesAttackManager.FinishRound();
+                }
+            }
+            else
+            {
+                doNotAddPeg = false;
+            }
+        }
+
 
         if (shipController != null)
         {
             transform.GetChild(0).GetComponent<MeshRenderer>().material = darkBlueMaterial;
-            shipController.DoHit((tilePos.Item1, tilePos.Item2));
+            if (tilesAttackManager.inAttackRound) { 
+                shipController.DoHit((tilePos.Item1, tilePos.Item2));
+            }
         } else
         {
             transform.GetChild(0).GetComponent<MeshRenderer>().material = blueMaterial;
-            if(doNotCreatePeg)
+            if (tilesAttackManager.inAttackRound)
             {
-                doNotCreatePeg = false;
-            } else
-            {
-                PegCollider.SetActive(true);
+                if (doNotCreatePeg)
+                {
+                    doNotCreatePeg = false;
+                }
+                else
+                {
+                    PegCollider.SetActive(true);
+                }
             }
         }
         transform.GetChild(0).GetChild(0).gameObject.SetActive(false);

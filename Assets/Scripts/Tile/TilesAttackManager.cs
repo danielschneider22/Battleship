@@ -174,10 +174,127 @@ public class TilesAttackManager : MonoBehaviour
 
     }
 
+    private void MakeBoxAttack()
+    {
+        (int, int) randomTile = (-1, -1);
+        if (attackingList.Count < 20)
+        {
+
+            for (var x = 0; x < 8; x++)
+            {
+                randomTile = (x, 0);
+                if (!attackingList.Contains(randomTile))
+                {
+                    attackingList.Add(randomTile);
+                    TileManager tileManager = tilesManager.tiles[randomTile.Item1, randomTile.Item2];
+                    GameObject tileObject = tileManager.transform.GetChild(0).gameObject;
+                    if (tilesManager.getShipControllerIfActiveCoord(randomTile.Item1, randomTile.Item2) != null)
+                    {
+                        tileObject.GetComponent<MeshRenderer>().material = darkRed;
+                        tileObject.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = reticleLocked;
+                    }
+                    else
+                    {
+                        tileObject.GetComponent<MeshRenderer>().material = red;
+                        tileObject.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = reticleSearching;
+                    }
+
+                    tileObject.transform.GetChild(0).gameObject.SetActive(true);
+                    tileObject.transform.parent.GetComponent<Animator>().SetTrigger("Explode");
+                    tileManager.doNotCreatePeg = Random.Range(0, 6) > 0;
+                    tileManager.doNotAddPeg = true;
+                }
+
+            }
+            for (var x = 0; x < 8; x++)
+            {
+                randomTile = (x, 6);
+                if (!attackingList.Contains(randomTile))
+                {
+                    attackingList.Add(randomTile);
+                    TileManager tileManager = tilesManager.tiles[randomTile.Item1, randomTile.Item2];
+                    GameObject tileObject = tileManager.transform.GetChild(0).gameObject;
+                    if (tilesManager.getShipControllerIfActiveCoord(randomTile.Item1, randomTile.Item2) != null)
+                    {
+                        tileObject.GetComponent<MeshRenderer>().material = darkRed;
+                        tileObject.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = reticleLocked;
+                    }
+                    else
+                    {
+                        tileObject.GetComponent<MeshRenderer>().material = red;
+                        tileObject.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = reticleSearching;
+                    }
+
+                    tileObject.transform.GetChild(0).gameObject.SetActive(true);
+                    tileObject.transform.parent.GetComponent<Animator>().SetTrigger("Explode");
+                    tileManager.doNotCreatePeg = Random.Range(0, 6) > 0;
+                    tileManager.doNotAddPeg = true;
+                }
+
+            }
+            for (var y = 0; y < 7; y++)
+            {
+                randomTile = (0, y);
+                if (!attackingList.Contains(randomTile))
+                {
+                    attackingList.Add(randomTile);
+                    TileManager tileManager = tilesManager.tiles[randomTile.Item1, randomTile.Item2];
+                    GameObject tileObject = tileManager.transform.GetChild(0).gameObject;
+                    if (tilesManager.getShipControllerIfActiveCoord(randomTile.Item1, randomTile.Item2) != null)
+                    {
+                        tileObject.GetComponent<MeshRenderer>().material = darkRed;
+                        tileObject.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = reticleLocked;
+                    }
+                    else
+                    {
+                        tileObject.GetComponent<MeshRenderer>().material = red;
+                        tileObject.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = reticleSearching;
+                    }
+
+                    tileObject.transform.GetChild(0).gameObject.SetActive(true);
+                    tileObject.transform.parent.GetComponent<Animator>().SetTrigger("Explode");
+                    tileManager.doNotCreatePeg = Random.Range(0, 6) > 0;
+                    tileManager.doNotAddPeg = true;
+                }
+
+            }
+            for (var y = 0; y < 7; y++)
+            {
+                randomTile = (7, y);
+                if (!attackingList.Contains(randomTile))
+                {
+                    attackingList.Add(randomTile);
+                    TileManager tileManager = tilesManager.tiles[randomTile.Item1, randomTile.Item2];
+                    GameObject tileObject = tileManager.transform.GetChild(0).gameObject;
+                    if (tilesManager.getShipControllerIfActiveCoord(randomTile.Item1, randomTile.Item2) != null)
+                    {
+                        tileObject.GetComponent<MeshRenderer>().material = darkRed;
+                        tileObject.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = reticleLocked;
+                    }
+                    else
+                    {
+                        tileObject.GetComponent<MeshRenderer>().material = red;
+                        tileObject.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = reticleSearching;
+                    }
+
+                    tileObject.transform.GetChild(0).gameObject.SetActive(true);
+                    tileObject.transform.parent.GetComponent<Animator>().SetTrigger("Explode");
+                    tileManager.doNotCreatePeg = Random.Range(0, 6) > 0;
+                    tileManager.doNotAddPeg = true;
+                }
+
+            }
+
+
+        }
+
+    }
+
+    
+
     public void Start()
     {
-        // StartRound();
-        FinishRound();
+        StartRound();
     }
 
     public void FinishRound()
@@ -228,6 +345,11 @@ public class TilesAttackManager : MonoBehaviour
             numPegsForRound = 30;
             howLongToWait = 7f;
         }
+        else if (round == 5)
+        {
+            numPegsForRound = 40;
+            howLongToWait = 8f;
+        }
 
         for (var i = 0; i < numPegsForRound; i++)
         {
@@ -250,7 +372,7 @@ public class TilesAttackManager : MonoBehaviour
                 case (2):
                 {
                     MakeAttack();
-                    if(Random.Range(0, 4) == 0)
+                    if(Random.Range(0, 3) == 0)
                     {
                         MakeBadAttack();
                     }
@@ -272,9 +394,32 @@ public class TilesAttackManager : MonoBehaviour
                     break;
                 }
                 case (4):
-                default:
                 {
                     if (Random.Range(0, 2) == 0)
+                    {
+                        if (Random.Range(0, 2) == 0)
+                        {
+                            MakeRowAttack();
+                        } else
+                        {
+                            MakeBadAttack();
+                            MakeAttack();
+                        }
+                        
+                    }
+                    else
+                    {
+                        MakeBadAttack();
+                        MakeBadAttack();
+                        MakeBadAttack();
+                    }
+
+                    break;
+                }
+                case (5):
+                default:
+                {
+                    if (Random.Range(0, 4) == 0)
                     {
                         if (Random.Range(0, 2) == 0)
                         {
@@ -284,13 +429,19 @@ public class TilesAttackManager : MonoBehaviour
                         {
                             MakeColumnAttack();
                         }
-                        MakeAttack();
+                        MakeBadAttack();
                     }
                     else
                     {
-                        MakeBadAttack();
-                        MakeBadAttack();
-                        MakeBadAttack();
+                        if (Random.Range(0, 3) == 0)
+                        {
+                            MakeBoxAttack();
+                        } else
+                        {
+                            MakeBadAttack();
+                            MakeBadAttack();
+                            MakeBadAttack();
+                        }
                     }
 
                     break;
