@@ -1,0 +1,143 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7046006187323021390
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7046006187323021388}
+  - component: {fileID: 7046006187323021391}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: AudioManager
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7046006187323021388
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7046006187323021390}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -9.161982, y: 17.80824, z: 268.41852}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7046006187323021391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7046006187323021390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ae855d3fa79d684c81d7f08ffcaed29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - clip: {fileID: 8300000, guid: 56fe487ef87a2ce468dc86ec5233c8ba, type: 3}
+    volume: 0.261
+    pitch: 0
+    name: Cluck1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 7d812d5135441034381c7573351da5e1, type: 3}
+    volume: 0.261
+    pitch: 0
+    name: Cluck2
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: eac9c9ebd98d4c444b567d94fef47c87, type: 3}
+    volume: 0.261
+    pitch: 0
+    name: Cluck3
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: f97d1c36c192153498ea261eef3e0dde, type: 3}
+    volume: 0.454
+    pitch: 0
+    name: ChickenDeath
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: cfa3fd318b1298f47ae668024c7132ca, type: 3}
+    volume: 0.061
+    pitch: 0
+    name: Flap1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 1f9f144439230124b87dcd3074fcf11b, type: 3}
+    volume: 0.076
+    pitch: 0
+    name: Flap2
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 15751921fb71ec943ac9d839d9c6de19, type: 3}
+    volume: 0.061
+    pitch: 0
+    name: Flap3
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 01a9b00499e653d408db712ef3273156, type: 3}
+    volume: 0.068
+    pitch: 0
+    name: Flap4
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 749f937036c57ea4a83b75d86c376489, type: 3}
+    volume: 0.058
+    pitch: 0
+    name: Flap5
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: f93f838971276de48acfec338a2c5a09, type: 3}
+    volume: 0.068
+    pitch: 0
+    name: Flap6
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 60d65309dbf66b34a9b7c42abb68b2f6, type: 3}
+    volume: 0.114
+    pitch: 0
+    name: HitGround1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: d10b2142d408dcc4280518329a15813e, type: 3}
+    volume: 0.114
+    pitch: 0
+    name: HitGround2
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 86d049f16e3afbb43a4636d82fbcd9e0, type: 3}
+    volume: 0.114
+    pitch: 0
+    name: HitGround3
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 21351775e15e95141b45d6be50f1ee48, type: 3}
+    volume: 0.114
+    pitch: 0
+    name: Victory
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: d7bfa2d0518f5084aba513e2e6edb231, type: 3}
+    volume: 0.082
+    pitch: 0
+    name: DropThing
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 51dd3c541cef4e54ab03577d8479c878, type: 3}
+    volume: 0.082
+    pitch: 0
+    name: EmptyItems
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 7e58e86fb292595459dd7e07b9037971, type: 3}
+    volume: 0.172
+    pitch: 0
+    name: Bounce1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 1f56fce734e6479429e7ed07c29a072c, type: 3}
+    volume: 0.082
+    pitch: 0
+    name: Bounce2
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: b71ed10d82fca1f468060d7d9fcb0fd3, type: 3}
+    volume: 0.082
+    pitch: 0
+    name: Bounce3
+    source: {fileID: 0}
+  shouldDestroy: 0

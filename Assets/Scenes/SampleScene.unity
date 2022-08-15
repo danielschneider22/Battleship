@@ -3809,6 +3809,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 213079916}
+  - component: {fileID: 213079917}
   m_Layer: 0
   m_Name: DialogArea
   m_TagString: Untagged
@@ -3837,6 +3838,26 @@ Transform:
   m_Father: {fileID: 252511250}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &213079917
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 213079915}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 05dab3fb024fbf24aaf795e24e4ed05d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &214594368
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23436,6 +23457,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveController: {fileID: 167096979}
   ePromptGameObject: {fileID: 805912252}
+  timmyGuessManager: {fileID: 1858423030}
 --- !u!1 &1177617135
 GameObject:
   m_ObjectHideFlags: 0
@@ -27000,7 +27022,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: I like playing with balloons
+  m_text: You up for a game of battleship?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 11c6210e2ee355d42b47e3d0de1b2ddd, type: 2}
   m_sharedMaterial: {fileID: -4716906392049305806, guid: 11c6210e2ee355d42b47e3d0de1b2ddd,
@@ -38679,8 +38701,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b83d7ae19f3ae24fbccd407bb95ba91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pegsInStorage: 300
-  timeUntilPick: 1
+  pegsInStorage: 3
+  timeUntilPick: 8
   pickTimer: 0
   pegsHeld: 0
   pegsHeldText: {fileID: 26841081}

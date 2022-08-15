@@ -7,6 +7,7 @@ public class DropOffColliderManager : MonoBehaviour
 {
     public AnimationAndMovementController moveController;
     public GameObject ePromptGameObject;
+    public TimmyGuessManager timmyGuessManager;
 
     private void LateUpdate()
     {
@@ -18,7 +19,7 @@ public class DropOffColliderManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "DropOffArea" && !moveController.isDragging)
+        if (other.gameObject.name == "DropOffArea" && !moveController.isDragging && timmyGuessManager.pegsHeld > 0)
         {
             moveController.canDropOff = true;
             ePromptGameObject.transform.GetChild(1).GetComponent<TextMeshPro>().text = "Deposit [E]";

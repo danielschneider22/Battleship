@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class TimmyGuessManager : MonoBehaviour
 {
-    public int pegsInStorage = 300;
+    public int pegsInStorage = 3;
     private UITilesManager uTilesManager;
-    public float timeUntilPick = 1f;
+    public float timeUntilPick = 8f;
     public float pickTimer = 0f;
     public int pegsHeld = 0;
     public TextMeshProUGUI pegsHeldText;
@@ -68,7 +68,7 @@ public class TimmyGuessManager : MonoBehaviour
         {
             uTilesManager.activeTile.OnReveal();
             pegsInStorage = pegsInStorage - 1;
-            // Destroy(pegsContainer.GetChild(0).gameObject);
+            Destroy(pegsContainer.GetChild(0).gameObject);
             pickedList.Add(uTilesManager.activeTile.tilePos);
             bool foundRandomTile = false;
             do
