@@ -41,6 +41,7 @@ public class ShipController : MonoBehaviour
                     if(!isEnemyShip)
                     {
                         transform.GetChild(0).GetComponent<Animator>().SetTrigger("ShipDeath");
+                        ClearShipCoor();
                         bool gameover = true;
                         foreach (Transform ship in tilesManager.ships)
                         {
@@ -68,8 +69,8 @@ public class ShipController : MonoBehaviour
                         }
                         if (gameover)
                         {
-                            winningCanvas.enabled = true;
-                            timmyGuessManager.enabled = false;
+                            winningCanvas.GetComponent<GameOverManager>().DoWin();
+                            // timmyGuessManager.enabled = false;
                         }
                     }
                     shouldClearCoor = true;

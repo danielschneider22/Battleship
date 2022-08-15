@@ -14818,8 +14818,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -60.3, y: 205.7}
-  m_SizeDelta: {x: 33.3588, y: 31.5799}
+  m_AnchoredPosition: {x: -44.392715, y: 205.7}
+  m_SizeDelta: {x: 65.1734, y: 31.5799}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &691239378
 MonoBehaviour:
@@ -22675,6 +22675,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae20d2917af2554183ee214b4dbc996, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextRoundButton: {fileID: 692692547}
+  EnemyTiles: {fileID: 1517747592}
+  enemyShips: {fileID: 969284498}
 --- !u!114 &977759931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51755,6 +51758,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae20d2917af2554183ee214b4dbc996, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextRoundButton: {fileID: 692692547}
+  EnemyTiles: {fileID: 1517747592}
+  enemyShips: {fileID: 969284498}
 --- !u!1 &4888520098545996369
 GameObject:
   m_ObjectHideFlags: 0

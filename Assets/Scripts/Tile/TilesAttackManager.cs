@@ -93,7 +93,6 @@ public class TilesAttackManager : MonoBehaviour
             }
             
             tileObject.transform.GetChild(0).gameObject.SetActive(true);
-            tileObject.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = reticleLocked;
             tileObject.transform.parent.GetComponent<Animator>().SetTrigger("Explode");
 
         }
@@ -177,7 +176,8 @@ public class TilesAttackManager : MonoBehaviour
 
     public void Start()
     {
-        StartRound();
+        // StartRound();
+        FinishRound();
     }
 
     public void FinishRound()

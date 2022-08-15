@@ -13,6 +13,6 @@ public class ShipDie : MonoBehaviour
 
     public void DoDeath()
     {
-        shipController.ClearShipCoor();
+        // shipController.ClearShipCoor();
     }
 }
